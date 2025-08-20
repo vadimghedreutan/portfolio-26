@@ -2,10 +2,13 @@ import { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const base = "https://vadimghedreutan.net"
-    return [
+    const currentDate = new Date()
+
+    // Base language routes
+    const languageRoutes = [
         {
             url: `${base}/en`,
-            lastModified: new Date(),
+            lastModified: currentDate,
             alternates: {
                 languages: {
                     en: `${base}/en`,
@@ -15,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         },
         {
             url: `${base}/de`,
-            lastModified: new Date(),
+            lastModified: currentDate,
             alternates: {
                 languages: {
                     en: `${base}/en`,
@@ -24,4 +27,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
             },
         },
     ]
+
+    return languageRoutes
 }

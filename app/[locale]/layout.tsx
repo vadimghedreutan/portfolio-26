@@ -5,6 +5,7 @@ import "./globals.css"
 import { routing } from "@/i18n/routing"
 import { notFound } from "next/navigation"
 import { setRequestLocale } from "next-intl/server"
+import { getMessages } from "next-intl/server"
 import Header from "../components/Header"
 
 export function generateStaticParams() {
@@ -63,8 +64,8 @@ export const metadata: Metadata = {
         images: ["https://vadimghedreutan.net/og.jpg"],
     },
     icons: {
-        shortcut: "../favicon.ico",
-        apple: "../apple-touch-icon.png",
+        shortcut: "/favicon.ico",
+        apple: "/apple-touch-icon.png",
     },
     verification: {
         google: "5cP42JTz0Y4vOZy_JAj7frAPm0KxsugsuzJ93GJQg5o",
@@ -92,13 +93,16 @@ export default async function RootLayout({
 
     setRequestLocale(locale)
 
+    // Get messages for the locale
+    const messages = await getMessages()
+
     return (
         <html lang={locale} className={bricolageGrotesque.className}>
             <body className="antialiased">
-                <NextIntlClientProvider>
-                    <div className="w-full flex flex-col min-h-screen">
+                <NextIntlClientProvider messages={messages}>
+                    <div className="flex flex-col min-h-screen">
                         <Header />
-                        <div className="mt-auto">{children}</div>
+                        <main className="flex-1">{children}</main>
                     </div>
                 </NextIntlClientProvider>
             </body>

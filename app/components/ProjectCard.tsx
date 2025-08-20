@@ -5,15 +5,7 @@ import { motion, useAnimation, type Variants } from "framer-motion"
 import { useInView } from "react-intersection-observer"
 import Link from "next/link"
 import Image from "next/image"
-import clsx from "clsx"
-
-interface Props {
-    title: string
-    image: string
-    description: string
-    link: string
-    publishedAt: string
-}
+import type { Project } from "./ProjectData"
 
 const variants: Variants = {
     visible: {
@@ -31,7 +23,7 @@ const ProjectCard = ({
     title,
     description,
     publishedAt,
-}: Props) => {
+}: Project) => {
     const [isLoading, setLoading] = useState(true)
     const controls = useAnimation()
     const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -42,37 +34,41 @@ const ProjectCard = ({
 
     return (
         <motion.div
-            ref={ref as any}
+            ref={ref}
             animate={controls}
             initial="hidden"
             variants={variants}
+            className="group"
         >
-            <Link href={link} target="_blank" className="mx-auto flex flex-col">
+            <Link
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-auto flex flex-col"
+                aria-label={`View ${title} project`}
+            >
                 <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-neutral-100 border border-neutral-200 p-1">
                     <Image
                         src={image}
-                        alt={`${title} preview image`}
+                        alt={`${title} project preview image`}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         priority
-                        className={clsx(
-                            "object-cover transition rounded-xl", // ✅ make the image itself rounded
+                        className={`object-cover transition-all duration-300 rounded-xl ${
                             isLoading ? "grayscale" : "filter-none"
-                        )}
+                        }`}
                         onLoad={() => setLoading(false)}
                     />
                 </div>
             </Link>
             <div className="p-3">
-                {/* <p className="sm:text-lg sm:font-medium">
-                    {title}{" "}
-                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                        – {publishedAt}
-                    </span>
-                </p> */}
-                {/* <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-1">
-                    {description}
-                </p> */}
+                <h3 className="text-lg font-medium text-neutral-900 mb-1">
+                    {title}
+                </h3>
+                <p className="text-sm text-neutral-600 mb-2">{description}</p>
+                <time className="text-xs text-neutral-500">
+                    {new Date(publishedAt).toLocaleDateString()}
+                </time>
             </div>
         </motion.div>
     )
