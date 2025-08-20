@@ -1,6 +1,8 @@
 import { useTranslations } from "next-intl"
 import { setRequestLocale } from "next-intl/server"
 import { use } from "react"
+import Hero from "../components/Hero"
+import ProjectSection from "../components/ProjectSection"
 
 export default function Home({
     params,
@@ -14,11 +16,13 @@ export default function Home({
     const t = useTranslations("hero")
 
     return (
-        <div>
-            <h1 className="text-4xl font-bold font-bricolage_grotesque text-blue-700 ">
-                {t("title")}
-            </h1>
-            <p>{t("subtitle")}</p>
-        </div>
+        <main className="px-2 2xl:px-[4vw]">
+            <Hero
+                title={t("title")}
+                name={t("name")}
+                subtitle={t("subtitle")}
+            />
+            <ProjectSection />
+        </main>
     )
 }

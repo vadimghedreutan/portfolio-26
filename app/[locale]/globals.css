@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -118,5 +116,25 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Title (smaller, e.g. section heading) */
+  .heading {
+    @apply text-left tracking-[-0.1rem] mt-0 mb-0 xl:text-[2.5rem] text-4xl leading-[100%];
+  }
+    /* Title (large hero heading) */
+  .heading-title {
+    @apply text-left tracking-[-0.1rem] mt-0 mb-0 text-4xl font-light leading-[1];
+  }
+
+  /* Subtitle (large hero heading) */
+  .heading-subtitle {
+    @apply text-left tracking-[-0.5vw] mt-0 mb-0 text-[8vw] font-light leading-[0.9];
+  }
+  
+  .badge {
+    @apply w-fit flex items-center tracking-[-0.05rem] whitespace-nowrap cursor-default border border-[#d6d6d6] rounded-2xl xl:px-4 xl:py-1 px-2 leading-[120%] xl:text-[1.2rem]
   }
 }

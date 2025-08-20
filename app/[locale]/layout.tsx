@@ -5,6 +5,7 @@ import "./globals.css"
 import { routing } from "@/i18n/routing"
 import { notFound } from "next/navigation"
 import { setRequestLocale } from "next-intl/server"
+import Header from "../components/Header"
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }))
@@ -72,7 +73,7 @@ export const metadata: Metadata = {
 
 const bricolageGrotesque = Bricolage_Grotesque({
     subsets: ["latin"],
-    weight: ["400", "700"],
+    weight: ["300", "400", "700"],
     display: "swap",
 })
 
@@ -94,7 +95,12 @@ export default async function RootLayout({
     return (
         <html lang={locale} className={bricolageGrotesque.className}>
             <body className="antialiased">
-                <NextIntlClientProvider>{children}</NextIntlClientProvider>
+                <NextIntlClientProvider>
+                    <div className="w-full flex flex-col min-h-screen">
+                        <Header />
+                        <div className="mt-auto">{children}</div>
+                    </div>
+                </NextIntlClientProvider>
             </body>
         </html>
     )
