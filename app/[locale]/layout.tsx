@@ -7,6 +7,7 @@ import { notFound } from "next/navigation"
 import { setRequestLocale } from "next-intl/server"
 import { getMessages } from "next-intl/server"
 import Header from "../components/Header"
+import { LenisProvider } from "../providers/LenisProvider"
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }))
@@ -100,10 +101,12 @@ export default async function RootLayout({
         <html lang={locale} className={bricolageGrotesque.className}>
             <body className="antialiased">
                 <NextIntlClientProvider messages={messages}>
-                    <div className="flex flex-col min-h-screen">
-                        <Header />
-                        <main className="flex-1">{children}</main>
-                    </div>
+                    <LenisProvider>
+                        <div className="flex flex-col min-h-screen">
+                            <Header />
+                            <main className="flex-1">{children}</main>
+                        </div>
+                    </LenisProvider>
                 </NextIntlClientProvider>
             </body>
         </html>

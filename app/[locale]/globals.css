@@ -92,10 +92,14 @@
 
   /* Subtitle (large hero heading) */
   .heading-subtitle {
-    @apply text-left tracking-[-0.5vw] mt-0 mb-0 text-[8vw] font-light leading-[0.9];
+    @apply text-left tracking-[-0.1rem] mt-0 mb-0 text-[8vw] font-light leading-[0.9];
   }
   
   .badge {
-    @apply w-fit flex items-center tracking-[-0.05rem] whitespace-nowrap cursor-default border border-[#d6d6d6] rounded-2xl xl:px-4 xl:py-1 px-2 leading-[120%] xl:text-[1.2rem];
+    @apply w-fit flex items-center tracking-[-0.05rem] whitespace-nowrap cursor-default border border-[#d6d6d6] rounded-2xl xl:px-4 xl:py-1 px-2 leading-[120%] xl:text-[1.2rem] transition-all duration-300;
+  }
+  
+  .badges--dark .badge {
+    @apply bg-neutral-900 text-white border-neutral-700;
   }
 }
