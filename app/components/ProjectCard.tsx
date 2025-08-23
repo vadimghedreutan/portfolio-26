@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, useReducedMotion, type Variants } from "framer-motion"
+import { motion, useReducedMotion, type Variants } from "motion/react"
 import Link from "next/link"
 import Image from "next/image"
 import type { Project } from "./ProjectData"

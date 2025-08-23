@@ -11,7 +11,7 @@ type HeroProps = {
 export default function Hero({ title, subtitle, name }: HeroProps) {
     return (
         <section
-            className="relative px-5 sm:px-2 w-full h-[calc(100dvh-76px)]"
+            className="relative w-full h-[calc(100dvh-76px)]"
             aria-labelledby="hero-heading"
         >
             <div className="flex flex-col justify-end h-full">

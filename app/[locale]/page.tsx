@@ -11,7 +11,7 @@ export default async function Home({
     const t = await getTranslations("hero")
 
     return (
-        <main className="px-2 2xl:px-[4vw]">
+        <main className="px-5 sm:px-10">
             <Hero
                 title={t("title")}
                 name={t("name")}
