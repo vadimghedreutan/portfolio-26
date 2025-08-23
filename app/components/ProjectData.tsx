@@ -10,14 +10,14 @@ export const projects: Project[] = [
     {
         title: "Python Linux Blog",
         image: "/projects/blog_website.webp",
-        description: "Next.js 13, TypeScript, Tailwind CSS, Sanity v3",
+        description: "Next.js 13, Tailwind CSS",
         link: "https://python-linux-blog.vercel.app",
         publishedAt: "2023-03-10",
     },
     {
         title: "Instagram redesign",
         image: "/projects/insta_re.webp",
-        description: "Next.js, Firebase v9, NextAuth, Tailwind CSS",
+        description: "Next.js, Firebase",
         link: "https://github.com/vadimghedreutan/instagram-redesign-nextjs",
         publishedAt: "2022-01-22",
     },
@@ -38,26 +38,24 @@ export const projects: Project[] = [
     {
         title: "tofanconsult.de",
         image: "/projects/tofanconsult.webp",
-        description: "Next.js, SASS, Tailwind CSS, Prismic REST API",
+        description: "Next.js, SASS",
         link: "https://www.tofanconsult.de",
         publishedAt: "2022-11-13",
     },
     {
         title: "Linktree theme",
         image: "/projects/linktree.webp",
-        description: "Next.js 13, TypeScript, Tailwind CSS",
+        description: "Next.js 13, Tailwind CSS",
         link: "https://linktree-redesign-theme.vercel.app",
         publishedAt: "2023-02-12",
     },
     {
         title: "File Keeper App",
         image: "/projects/keepdata.webp",
-        description:
-            "Next.js 14, React, Clerk, Shadcn/ui, Firebase, Drag & Drop, CRUD, TypeScript",
+        description: "Next.js 14, Shadcn/ui",
         link: "https://github.com/vadimghedreutan/FileKeeper-app",
         publishedAt: "2024-03-18",
     },
 ]
 
-// Legacy export for backward compatibility
 export const items = projects

@@ -92,7 +92,7 @@
 
   /* Subtitle (large hero heading) */
   .heading-subtitle {
-    @apply text-left tracking-[-0.1rem] mt-0 mb-0 text-[8vw] font-light leading-[0.9];
+    @apply text-left tracking-[-.5vw] mt-0 mb-0 text-[8vw] font-light leading-[90%];
   }
   
   .badge {
