@@ -20,22 +20,22 @@ export default function AboutSection() {
                             <Image
                                 src="/md.svg"
                                 alt="Flag of Moldova"
-                                width={48}
-                                height={48}
+                                width={42}
+                                height={42}
                                 loading="lazy"
                             />
                             <Image
                                 src="/pt.svg"
                                 alt="Flag of Portugal"
-                                width={48}
-                                height={48}
+                                width={42}
+                                height={42}
                                 loading="lazy"
                             />
                             <Image
                                 src="/de.svg"
                                 alt="Flag of Germany"
-                                width={48}
-                                height={48}
+                                width={42}
+                                height={42}
                                 loading="lazy"
                             />
                         </div>

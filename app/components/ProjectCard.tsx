@@ -27,7 +27,7 @@ const ProjectCard = ({ link, image, title, description }: Project) => {
                     <CardBody className="bg-gray-50 relative group/card  border-black/[0.1] w-full h-auto rounded-xl p-6 border  ">
                         <CardItem
                             translateZ="50"
-                            className="text-xl font-bold text-neutral-600"
+                            className="xl:text-xl text-lg font-bold text-neutral-600"
                         >
                             {title}
                         </CardItem>

@@ -42,7 +42,7 @@ export default function ProjectSection() {
                     {/* Sticky block */}
                     <div className="flex flex-col justify-start xl:sticky xl:top-20 xl:h-fit space-y-2">
                         <motion.div
-                            className="flex xl:flex-col flex-row space-x-2 xl:space-y-2 xl:pt-10"
+                            className="flex flex-col space-y-2 xl:pt-10"
                             style={{ transformOrigin: "top left" }}
                             animate={
                                 isStickyActive
@@ -76,7 +76,7 @@ export default function ProjectSection() {
 
                 {/* RIGHT COLUMN (grid item #2) */}
                 <div
-                    className="grid grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-7 py-12"
+                    className="grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-7 py-12"
                     aria-label="Project portfolio grid"
                 >
                     {items
