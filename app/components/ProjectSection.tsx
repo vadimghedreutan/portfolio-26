@@ -24,7 +24,7 @@ export default function ProjectSection() {
     return (
         <section
             id="projects"
-            className="px-6 py-20"
+            className="xl:py-20 sm:py-6 py-3"
             aria-labelledby="projects-heading"
         >
             <div className="mx-auto grid gap-12 xl:grid-cols-[300px_2fr]">

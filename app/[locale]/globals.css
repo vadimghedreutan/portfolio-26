@@ -94,6 +94,10 @@
   .heading-subtitle {
     @apply text-left tracking-[-.5vw] mt-0 mb-0 text-[8vw] font-light leading-[90%];
   }
+
+  .heading-subtitle--sm {
+    @apply text-left tracking-[-.06rem] mt-0 mb-0 text-2xl font-light leading-[115%];
+  }
   
   .badge {
     @apply w-fit flex items-center tracking-[-0.05rem] whitespace-nowrap cursor-default border border-[#d6d6d6] rounded-2xl xl:px-4 xl:py-1 px-2 leading-[120%] xl:text-[1.2rem] transition-all duration-300;
@@ -101,5 +105,9 @@
   
   .badges--dark .badge {
     @apply bg-neutral-900 text-white border-neutral-700;
+  }
+
+  .text-about {
+    @apply tracking-[-.08rem] xl:text-[2rem] sm:text-2xl text-xl font-light leading-[130%];
   }
 }
