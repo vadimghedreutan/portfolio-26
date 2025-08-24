@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server"
 import Hero from "../components/Hero"
 import ProjectSection from "../components/ProjectSection"
 import AboutSection from "../components/AboutSection"
+import HoursSection from "../components/HoursSection"
 
 export default async function Home({
     params,
@@ -20,6 +21,7 @@ export default async function Home({
             />
             <ProjectSection />
             <AboutSection />
+            <HoursSection />
         </main>
     )
 }
