@@ -1,77 +1,84 @@
-import { NextIntlClientProvider, hasLocale } from "next-intl"
-import type { Metadata } from "next"
-import { Bricolage_Grotesque } from "next/font/google"
 import "./globals.css"
-import { routing } from "@/i18n/routing"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { setRequestLocale } from "next-intl/server"
-import { getMessages } from "next-intl/server"
+import { Bricolage_Grotesque } from "next/font/google"
+import { NextIntlClientProvider, hasLocale } from "next-intl"
+import {
+    setRequestLocale,
+    getMessages,
+    getTranslations,
+} from "next-intl/server"
+
+import { routing } from "@/i18n/routing"
 import Header from "../components/Header"
-import { LenisProvider } from "../providers/LenisProvider"
 import Footer from "../components/Footer"
+import { LenisProvider } from "../providers/LenisProvider"
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }))
 }
 
-export const metadata: Metadata = {
-    title: {
-        default: "Vadim Ghedreutan",
-        template: "%s | Vadim Ghedreutan",
-    },
-    description: "Developer, System Administrator, and creator.",
-    keywords: [
-        "Vadim Ghedreutan",
-        "Developer",
-        "System Administrator",
-        "Frontend",
-        "Java Backend",
-        "React",
-        "Next.js",
-    ],
-    authors: [{ name: "Vadim Ghedreutan", url: "https://vadimghedreutan.net" }],
-    alternates: {
-        canonical: "https://vadimghedreutan.net",
-    },
-    openGraph: {
-        title: "Vadim Ghedreutan",
-        description: "Developer, System Administrator, and creator.",
-        url: "https://vadimghedreutan.net",
-        siteName: "Vadim Ghedreutan",
-        images: [
-            {
-                url: "https://vadimghedreutan.net/og.jpg",
-                width: 1920,
-                height: 1080,
-            },
+// Next.js 15: params is a Promise — await it here
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+    const { locale } = await params
+    const t = await getTranslations({ locale, namespace: "metadata" })
+
+    return {
+        title: {
+            default: "Vadim Ghedreutan",
+            template: "%s | Vadim Ghedreutan",
+        },
+        description: t("description"),
+        keywords: t("keywords").split(", "),
+        authors: [
+            { name: "Vadim Ghedreutan", url: "https://vadimghedreutan.net" },
         ],
-        locale: "de-DE",
-        type: "website",
-    },
-    robots: {
-        index: true,
-        follow: true,
-        googleBot: {
+        alternates: {
+            canonical: "https://vadimghedreutan.net",
+            languages: {
+                en: "https://vadimghedreutan.net/en",
+                de: "https://vadimghedreutan.net/de",
+            },
+        },
+        openGraph: {
+            title: "Vadim Ghedreutan",
+            description: t("description"),
+            url: "https://vadimghedreutan.net",
+            siteName: "Vadim Ghedreutan",
+            images: [
+                {
+                    url: "https://vadimghedreutan.net/og.jpg",
+                    width: 1920,
+                    height: 1080,
+                },
+            ],
+            locale: locale === "de" ? "de-DE" : "en-US",
+            type: "website",
+        },
+        robots: {
             index: true,
             follow: true,
-            "max-video-preview": -1,
-            "max-image-preview": "large",
-            "max-snippet": -1,
+            googleBot: {
+                index: true,
+                follow: true,
+                "max-video-preview": -1,
+                "max-image-preview": "large",
+                "max-snippet": -1,
+            },
         },
-    },
-    twitter: {
-        card: "summary_large_image",
-        title: "Vadim Ghedreutan",
-        description: "Developer, System Administrator, and creator.",
-        images: ["https://vadimghedreutan.net/og.jpg"],
-    },
-    icons: {
-        shortcut: "/favicon.ico",
-        apple: "/apple-touch-icon.png",
-    },
-    verification: {
-        google: "5cP42JTz0Y4vOZy_JAj7frAPm0KxsugsuzJ93GJQg5o",
-    },
+        twitter: {
+            card: "summary_large_image",
+            title: "Vadim Ghedreutan",
+            description: t("description"),
+            images: ["https://vadimghedreutan.net/og.jpg"],
+        },
+        icons: { shortcut: "/favicon.ico", apple: "/apple-touch-icon.png" },
+        verification: { google: "5cP42JTz0Y4vOZy_JAj7frAPm0KxsugsuzJ93GJQg5o" },
+    }
 }
 
 const bricolageGrotesque = Bricolage_Grotesque({
@@ -94,8 +101,6 @@ export default async function RootLayout({
     }
 
     setRequestLocale(locale)
-
-    // Get messages for the locale
     const messages = await getMessages()
 
     return (

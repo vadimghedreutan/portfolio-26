@@ -1,7 +1,27 @@
 {
+  "about": {
+    "description_first": "Geboren und aufgewachsen in Chișinău, Republik Moldau, begann ich meine berufliche Laufbahn in Portugal als Systemadministrator, bevor ich meinen Weg nach Deutschland fortsetzte. Im Laufe der Zeit war ich in verschiedenen Positionen außerhalb der Entwicklung tätig und betreute parallel freiberufliche Projekte in den Bereichen Webentwicklung und IT-Support.",
+    "description_second": "Ich erweitere kontinuierlich meine Fähigkeiten, erkunde neue Technologien und entwickle Anwendungen, die Ideen zum Leben erwecken. Ob für Kundenprojekte oder aus persönlicher Leidenschaft – ich liebe es, funktionale und gut gestaltete digitale Erlebnisse zu schaffen, stets mit dem Anspruch, dass auch der Spaß am Prozess nicht zu kurz kommt.",
+    "name": "Länder"
+  },
+  "contact": {
+    "description": "Design und Entwicklung von mir.",
+    "name": "Kontakt"
+  },
   "hero": {
     "name": "Ich bin Vadim Ghedreutan",
     "subtitle": "- Entwickler & Sysadmin, der entwickelt und betreibt.",
     "title": "Gruß, "
+  },
+  "hours": {
+    "name": "Investierte Stunden"
+  },
+  "project": {
+    "subtitle": "und alles dazwischen",
+    "title": "Ich tue"
+  },
+  "metadata": {
+    "description": "Entwickler, Systemadministrator und Creator.",
+    "keywords": "Vadim Ghedreutan, Entwickler, Systemadministrator, Frontend, Java Backend, React, Next.js"
   }
 }

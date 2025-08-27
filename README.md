@@ -1,6 +1,6 @@
 # My Portfolio 26
 
-This is my personal portfolio website built with **Next.js 15**, **Tailwind CSS v4**, and **Framer Motion** for animations.
+This is my personal portfolio website built with **Next.js 15**, **Tailwind CSS v4**, **Motion** for animations, and **next-intl** for internationalization.
 
 ---
 
@@ -8,7 +8,8 @@ This is my personal portfolio website built with **Next.js 15**, **Tailwind CSS 
 
 -   ⚡ **Next.js 15**
 -   🎨 **Tailwind CSS v4**
--   🎬 **Framer Motion** (animations)
+-   🎬 **Motion** (animations)
+-   🌍 **next-intl** (internationalization & localization)
 
 ---
 
@@ -16,7 +17,8 @@ This is my personal portfolio website built with **Next.js 15**, **Tailwind CSS 
 
 -   📱 **Responsive Design (Mobile-first):** Fully optimized for all screen sizes.
 -   🚀 **Fast Rendering with Next.js 15:** Optimized performance for SEO & user experience.
--   🎞 **Smooth Animations with Framer Motion:** Engaging transitions and effects.
+-   🎞 **Smooth Animations with Motion:** Engaging transitions and effects.
+-   🌍 **Multi-language Support with next-intl:** Seamless language switching (EN/DE).
 
 ---
 

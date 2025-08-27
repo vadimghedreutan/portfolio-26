@@ -9,19 +9,29 @@ export default async function Home({
 }: {
     params: Promise<{ locale: string }>
 }) {
-    const { locale } = await params
-    const t = await getTranslations("hero")
+    const { locale } = await params // if unused, you can omit this line
+
+    const [h, p, a, i] = await Promise.all([
+        getTranslations("hero"),
+        getTranslations("project"),
+        getTranslations("about"),
+        getTranslations("hours"),
+    ])
 
     return (
         <main className="px-5 sm:px-10">
             <Hero
-                title={t("title")}
-                name={t("name")}
-                subtitle={t("subtitle")}
+                title={h("title")}
+                name={h("name")}
+                subtitle={h("subtitle")}
             />
-            <ProjectSection />
-            <AboutSection />
-            <HoursSection />
+            <ProjectSection title={p("title")} subtitle={p("subtitle")} />
+            <AboutSection
+                name={a("name")}
+                description_first={a("description_first")}
+                description_second={a("description_second")}
+            />
+            <HoursSection name={i("name")} />
         </main>
     )
 }

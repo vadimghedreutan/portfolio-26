@@ -3,6 +3,7 @@
 import React from "react"
 import { motion, useReducedMotion, type Variants } from "motion/react"
 import { Badge } from "../../components/ui/badge"
+import { useTranslations } from "next-intl"
 
 type IconProps = React.SVGProps<SVGSVGElement>
 type Social = {
@@ -71,6 +72,7 @@ const socials: Social[] = [
 /* ---------- Main Component ---------- */
 
 const Footer = () => {
+    const c = useTranslations("contact")
     const currentYear = new Date().getFullYear()
     const reduce = useReducedMotion()
 
@@ -96,13 +98,14 @@ const Footer = () => {
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
                     <Badge className="rounded-3xl px-5 text-lg">4</Badge>
-                    <h3 className="heading-subtitle--sm">Contacts</h3>
+                    <h3 className="heading-subtitle--sm">{c("name")}</h3>
                 </div>
-                <hr className="border-gray-300 mt-2" />
+                <hr className="border-gray-300" />
             </div>
 
             <div className="flex flex-col items-center py-16">
-                <ul className="flex items-center justify-center space-x-4">
+                {/* Social icons */}
+                <ul className="flex items-center justify-center gap-6">
                     {socials.map(({ name, href, Icon, title }, index) => (
                         <motion.li
                             key={name}
@@ -129,9 +132,10 @@ const Footer = () => {
                     ))}
                 </ul>
 
-                <div className="flex flex-col items-center space-y-1 mt-6 text-gray-600">
-                    <p className="text-sm">- Design and development by me.</p>
-                    <p className="text-sm">@{currentYear}</p>
+                {/* Footer text */}
+                <div className="flex justify-between w-full mt-16 text-gray-600 text-sm">
+                    <p>- {c("description")}</p>
+                    <p>@{currentYear}</p>
                 </div>
             </div>
         </section>

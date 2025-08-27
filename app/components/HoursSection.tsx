@@ -5,7 +5,11 @@ import { CodeBlock } from "@/components/ui/code-block"
 import { motion, useReducedMotion } from "motion/react"
 import { useMemo } from "react"
 
-export default function HoursSection() {
+type HourProp = {
+    name: string
+}
+
+export default function HoursSection({ name }: HourProp) {
     const reduce = useReducedMotion()
 
     const code = useMemo(
@@ -37,9 +41,9 @@ export default function HoursSection() {
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
                     <Badge className="rounded-3xl px-5 text-lg">20K+</Badge>
-                    <h3 className="heading-subtitle--sm">Hours Invested</h3>
+                    <h3 className="heading-subtitle--sm">{name}</h3>
                 </div>
-                <hr className="border-gray-300 mt-2" />
+                <hr className="border-gray-300" />
             </div>
 
             <div className="py-16">

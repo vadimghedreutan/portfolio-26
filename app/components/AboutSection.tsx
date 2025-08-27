@@ -1,15 +1,25 @@
 import { Badge } from "@/components/ui/badge"
 import Image from "next/image"
 
-export default function AboutSection() {
+type AboutProps = {
+    name: string
+    description_first: string
+    description_second: string
+}
+
+export default function AboutSection({
+    name,
+    description_first,
+    description_second,
+}: AboutProps) {
     return (
         <section id="about" className="py-4">
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
                     <Badge className="rounded-3xl px-5 text-lg">3</Badge>
-                    <h3 className="heading-subtitle--sm">Countries</h3>
+                    <h3 className="heading-subtitle--sm">{name}</h3>
                 </div>
-                <div className="w-full border-b border-gray-300 mt-2"></div>
+                <div className="w-full border-b border-gray-300"></div>
             </div>
 
             <div className="py-16">
@@ -41,22 +51,8 @@ export default function AboutSection() {
                         </div>
                         {/* Text Content */}
                         <div className="space-y-6">
-                            <p className="text-about">
-                                Born and raised in Chișinău, Republic of
-                                Moldova, I began my career in Portugal as a
-                                System Administrator before moving to Germany.
-                                Along the way, I worked in various roles outside
-                                of development while pursuing freelance projects
-                                in web development and IT support.
-                            </p>
-                            <p className="text-about">
-                                I’m continuously expanding my skills, exploring
-                                emerging technologies, and building apps that
-                                bring ideas to life. Whether for client work or
-                                personal passion, I love creating functional,
-                                well-designed digital experiences — always
-                                making sure there’s a bit of fun in the process.
-                            </p>
+                            <p className="text-about">{description_first}</p>
+                            <p className="text-about">{description_second}</p>
                         </div>
                     </div>
                 </div>

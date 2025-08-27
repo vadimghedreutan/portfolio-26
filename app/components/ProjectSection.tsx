@@ -6,7 +6,12 @@ import { items } from "./ProjectData"
 import { useEffect, useState } from "react"
 import { motion, useReducedMotion } from "motion/react"
 
-export default function ProjectSection() {
+type ProjectProps = {
+    title: string
+    subtitle: string
+}
+
+export default function ProjectSection({ title, subtitle }: ProjectProps) {
     const [sentinelRef, sentinelInView] = useInView({
         rootMargin: "-20px 0px 0px 0px", // match your sticky top
         threshold: 0,
@@ -56,7 +61,7 @@ export default function ProjectSection() {
                             }
                         >
                             <h2 id="projects-heading" className="heading">
-                                I do
+                                {title}
                             </h2>
                             <div
                                 className={`flex xl:flex-col flex-row space-x-2 xl:space-y-2 ${
@@ -70,7 +75,7 @@ export default function ProjectSection() {
                                 </span>
                             </div>
                         </motion.div>
-                        <p className="heading">and everything in between</p>
+                        <p className="heading">{subtitle}</p>
                     </div>
                 </div>
 
