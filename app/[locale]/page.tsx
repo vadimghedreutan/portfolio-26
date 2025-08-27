@@ -3,7 +3,6 @@ import Hero from "../components/Hero"
 import ProjectSection from "../components/ProjectSection"
 import AboutSection from "../components/AboutSection"
 import HoursSection from "../components/HoursSection"
-// import ContactSection from "../components/ContactSection"
 
 export default async function Home({
     params,
@@ -23,7 +22,6 @@ export default async function Home({
             <ProjectSection />
             <AboutSection />
             <HoursSection />
-            {/* <ContactSection /> */}
         </main>
     )
 }

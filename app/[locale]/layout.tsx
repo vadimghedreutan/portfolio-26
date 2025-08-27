@@ -8,6 +8,7 @@ import { setRequestLocale } from "next-intl/server"
 import { getMessages } from "next-intl/server"
 import Header from "../components/Header"
 import { LenisProvider } from "../providers/LenisProvider"
+import Footer from "../components/Footer"
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }))
@@ -105,6 +106,9 @@ export default async function RootLayout({
                         <div className="flex flex-col min-h-screen">
                             <Header />
                             <main className="flex-1">{children}</main>
+                            <div className="mt-auto">
+                                <Footer />
+                            </div>
                         </div>
                     </LenisProvider>
                 </NextIntlClientProvider>

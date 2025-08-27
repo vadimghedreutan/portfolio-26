@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss"
+/** @type {import('tailwindcss').Config} */
 
 const config: Config = {
     content: [
@@ -13,17 +14,19 @@ const config: Config = {
             center: true,
             padding: "2rem",
             screens: {
-                "2xl": "1400px",
+                "2xl": "1400px", // only for `.container`
             },
         },
         extend: {
+            screens: {
+                "2xl": "1536px", // (same as default, optional)
+                "3xl": "1920px",
+            },
             fontFamily: {
-                fontFamily: {
-                    bricolage_grotesque: [
-                        "var(--font-bricolage-grotesque)",
-                        "sans-serif",
-                    ],
-                },
+                bricolage_grotesque: [
+                    "var(--font-bricolage-grotesque)",
+                    "sans-serif",
+                ],
             },
             colors: {
                 border: "hsl(var(--border))",
@@ -79,12 +82,8 @@ const config: Config = {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
             },
-            screens: {
-                "2xl": "1536px",
-            },
         },
     },
     plugins: [require("tw-animate-css")],
-} satisfies Config
-
+}
 export default config

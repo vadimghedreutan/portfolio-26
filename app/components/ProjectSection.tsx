@@ -76,7 +76,7 @@ export default function ProjectSection() {
 
                 {/* RIGHT COLUMN (grid item #2) */}
                 <div
-                    className="grid grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-7 py-12"
+                    className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 gap-7 py-12"
                     aria-label="Project portfolio grid"
                 >
                     {items

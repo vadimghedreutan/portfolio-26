@@ -23,7 +23,7 @@ const ProjectCard = ({ link, image, title, description }: Project) => {
                 className="mx-auto flex flex-col"
                 aria-label={`View ${title} project`}
             >
-                <CardContainer className="w-full max-w-md mx-auto">
+                <CardContainer className="w-full mx-auto">
                     <CardBody className="bg-gray-50 relative group/card  border-black/[0.1] w-full h-auto rounded-xl p-6 border  ">
                         <CardItem
                             translateZ="50"

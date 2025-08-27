@@ -6,7 +6,7 @@ export default function AboutSection() {
         <section id="about" className="py-20">
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
-                    <Badge className=" rounded-3xl px-5 text-lg">3</Badge>
+                    <Badge className="rounded-3xl px-5 text-lg">3</Badge>
                     <h3 className="heading-subtitle--sm">Countries</h3>
                 </div>
                 <div className="w-full border-b border-gray-300 mt-2"></div>
