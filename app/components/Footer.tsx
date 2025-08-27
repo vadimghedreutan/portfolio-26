@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { motion } from "motion/react"
+import { motion, useReducedMotion, type Variants } from "motion/react"
 import { Badge } from "../../components/ui/badge"
 
 type IconProps = React.SVGProps<SVGSVGElement>
@@ -12,7 +12,7 @@ type Social = {
     title?: string
 }
 
-/* ---------- Inline SVG Icons ---------- */
+/* ---------- Icons (unchanged) ---------- */
 
 const GithubIcon = (props: IconProps) => (
     <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
@@ -23,19 +23,16 @@ const GithubIcon = (props: IconProps) => (
         />
     </svg>
 )
-
 const XIcon = (props: IconProps) => (
     <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.5l-5.146-6.74-5.89 6.74H2.156l7.73-8.836L1.725 2.25h7.6l4.658 6.134 4.261-6.134zM16.729 19.55h1.833L7.393 4.33H5.426l11.303 15.22z" />
     </svg>
 )
-
 const MailIcon = (props: IconProps) => (
     <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
         <path d="M20 4H4a2 2 0 0 0-2 2v12c0 1.103.897 2 2 2h16a2 2 0 0 0 2-2V6c0-1.103-.897-2-2-2zm0 2-8 5L4 6h16zm0 12H4V8l8 5 8-5v10z" />
     </svg>
 )
-
 const LinkedinIcon = (props: IconProps) => (
     <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" {...props}>
         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
@@ -75,43 +72,63 @@ const socials: Social[] = [
 
 const Footer = () => {
     const currentYear = new Date().getFullYear()
+    const reduce = useReducedMotion()
+
+    const itemVariants: Variants = {
+        hidden: reduce ? { opacity: 0 } : { opacity: 0, y: 12 },
+        show: (i: number) =>
+            reduce
+                ? { opacity: 1, transition: { duration: 0.2, delay: i * 0.08 } }
+                : {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                          type: "spring",
+                          stiffness: 140,
+                          damping: 18,
+                          delay: i * 0.08,
+                      },
+                  },
+    }
+
     return (
-        <section id="contact" className="px-5 sm:px-10 py-20">
+        <section id="contact" className="px-5 sm:px-10 py-4">
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
-                    <Badge className=" rounded-3xl px-5 text-lg">4</Badge>
+                    <Badge className="rounded-3xl px-5 text-lg">4</Badge>
                     <h3 className="heading-subtitle--sm">Contacts</h3>
                 </div>
-                <div className="w-full border-b border-gray-300 mt-2"></div>
+                <hr className="border-gray-300 mt-2" />
             </div>
 
-            <div className="flex flex-col items-center pt-20">
+            <div className="flex flex-col items-center py-16">
                 <ul className="flex items-center justify-center space-x-4">
                     {socials.map(({ name, href, Icon, title }, index) => (
-                        <li key={name}>
-                            <motion.a
+                        <motion.li
+                            key={name}
+                            className="transform-gpu will-change-transform"
+                            initial="hidden"
+                            animate="show"
+                            variants={itemVariants}
+                            custom={index}
+                            whileHover={!reduce ? { scale: 1.2 } : {}}
+                            whileFocus={!reduce ? { scale: 1.2 } : {}}
+                        >
+                            <a
                                 href={href}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label={name}
                                 title={title ?? name}
                                 className="inline-flex items-center justify-center"
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{
-                                    duration: 0.6,
-                                    delay: index * 0.1,
-                                    ease: "easeOut",
-                                }}
-                                whileHover={{ scale: 1.25 }}
-                                whileFocus={{ scale: 1.25 }}
                             >
                                 <Icon className="h-7 w-7" />
                                 <span className="sr-only">{name}</span>
-                            </motion.a>
-                        </li>
+                            </a>
+                        </motion.li>
                     ))}
                 </ul>
+
                 <div className="flex flex-col items-center space-y-1 mt-6 text-gray-600">
                     <p className="text-sm">- Design and development by me.</p>
                     <p className="text-sm">@{currentYear}</p>

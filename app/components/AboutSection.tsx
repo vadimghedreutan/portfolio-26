@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function AboutSection() {
     return (
-        <section id="about" className="py-20">
+        <section id="about" className="py-4">
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
                     <Badge className="rounded-3xl px-5 text-lg">3</Badge>
@@ -12,7 +12,7 @@ export default function AboutSection() {
                 <div className="w-full border-b border-gray-300 mt-2"></div>
             </div>
 
-            <div className="xl:mt-24 mt-16">
+            <div className="py-16">
                 <div className="flex justify-end">
                     <div className="max-w-6xl space-y-8">
                         {/* Flags */}

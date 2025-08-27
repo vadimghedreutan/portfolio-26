@@ -2,9 +2,14 @@
 
 import { Badge } from "@/components/ui/badge"
 import { CodeBlock } from "@/components/ui/code-block"
+import { motion, useReducedMotion } from "motion/react"
+import { useMemo } from "react"
 
 export default function HoursSection() {
-    const code = `const HoursInvested = () => {
+    const reduce = useReducedMotion()
+
+    const code = useMemo(
+        () => `const HoursInvested = () => {
     const [skills] = useState({
         React: "🚀 My daily driver",
         ReactNative: "📱 On Quest",
@@ -23,28 +28,39 @@ export default function HoursSection() {
             </pre>
          </div>
         );
-    };
+    };`,
+        []
+    )
 
-    `
     return (
-        <section id="about" className="pb-20">
+        <section id="about" className="py-4">
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
-                    <Badge className=" rounded-3xl px-5 text-lg">20K+</Badge>
+                    <Badge className="rounded-3xl px-5 text-lg">20K+</Badge>
                     <h3 className="heading-subtitle--sm">Hours Invested</h3>
                 </div>
-                <div className="w-full border-b border-gray-300 mt-2"></div>
+                <hr className="border-gray-300 mt-2" />
             </div>
 
-            <div className="xl:mt-24 mt-16">
-                <div className="max-w-7xl mx-auto w-full">
+            <div className="py-16">
+                <motion.div
+                    className="max-w-7xl mx-auto w-full transform-gpu will-change-transform"
+                    initial={reduce ? false : { opacity: 0, y: 12 }}
+                    whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.2 }}
+                    transition={
+                        reduce
+                            ? { duration: 0.2 }
+                            : { type: "spring", stiffness: 120, damping: 18 }
+                    }
+                >
                     <CodeBlock
                         language="tsx"
                         filename="HoursInvested.tsx"
                         highlightLines={[9, 13, 14, 18]}
                         code={code}
                     />
-                </div>
+                </motion.div>
             </div>
         </section>
     )
