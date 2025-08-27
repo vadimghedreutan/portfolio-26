@@ -29,11 +29,6 @@ export function LenisProvider({ children }: { children: ReactNode }) {
             }
             requestAnimationFrame(raf)
 
-            // Optional: Add scroll event listener for debugging
-            // lenis.on("scroll", (e: any) => {
-            //     // console.log("Scroll event:", e)
-            // })
-
             return () => {
                 if (lenisRef.current) {
                     lenisRef.current.destroy()
