@@ -2,7 +2,6 @@
 
 import type { Project } from "./ProjectData"
 import { motion, useReducedMotion } from "motion/react"
-import { CardBody, CardContainer, CardItem } from "../../components/ui/3d-card"
 import Image from "next/image"
 
 const ProjectCard = ({ link, image, title, description }: Project) => {
@@ -10,7 +9,6 @@ const ProjectCard = ({ link, image, title, description }: Project) => {
 
     return (
         <motion.div
-            className="transform-gpu will-change-transform"
             initial={reduce ? false : { opacity: 0, y: 12 }}
             whileInView={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
@@ -27,42 +25,30 @@ const ProjectCard = ({ link, image, title, description }: Project) => {
                 className="mx-auto flex flex-col"
                 aria-label={`View ${title} project`}
             >
-                <CardContainer className="w-full mx-auto">
-                    <CardBody className="bg-gray-50 relative group/card border-black/[0.1] w-full h-auto rounded-xl p-6 border">
-                        <CardItem
-                            translateZ="50"
-                            className="xl:text-xl text-lg font-bold text-neutral-600"
-                        >
+                <div className="w-full mx-auto">
+                    <div className="bg-gray-50 relative group/card border-black/[0.1] w-full h-auto rounded-xl p-6 border">
+                        <div className="xl:text-xl text-lg font-bold text-neutral-600">
                             {title}
-                        </CardItem>
+                        </div>
 
-                        <CardItem
-                            as="p"
-                            translateZ="60"
-                            className="text-neutral-500 text-sm max-w-sm mt-2"
-                        >
+                        <div className="text-neutral-500 text-sm max-w-sm mt-2">
                             {description}
-                        </CardItem>
+                        </div>
 
-                        <CardItem
-                            translateZ="30"
-                            rotateX={5}
-                            rotateZ={-3}
-                            className="w-full mt-4"
-                        >
+                        <div className="w-full mt-4">
                             <div className="relative h-60 w-full">
                                 <Image
                                     src={image}
                                     alt={`${title} thumbnail`}
                                     fill
-                                    className="object-cover rounded-xl group-hover/card:shadow-xl"
+                                    className="object-cover rounded-xl group-hover/card:shadow-xl transition-all duration-300"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     priority
                                 />
                             </div>
-                        </CardItem>
-                    </CardBody>
-                </CardContainer>
+                        </div>
+                    </div>
+                </div>
             </a>
         </motion.div>
     )

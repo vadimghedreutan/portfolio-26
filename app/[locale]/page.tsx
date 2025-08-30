@@ -9,7 +9,7 @@ export default async function Home({
 }: {
     params: Promise<{ locale: string }>
 }) {
-    const { locale } = await params // if unused, you can omit this line
+    await params // locale is not used, so we just await it
 
     const [h, p, a, i] = await Promise.all([
         getTranslations("hero"),

@@ -109,7 +109,6 @@ const Footer = () => {
                     {socials.map(({ name, href, Icon, title }, index) => (
                         <motion.li
                             key={name}
-                            className="transform-gpu will-change-transform"
                             initial="hidden"
                             animate="show"
                             variants={itemVariants}

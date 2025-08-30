@@ -3,13 +3,36 @@
 import { useInView } from "react-intersection-observer"
 import ProjectCard from "./ProjectCard"
 import { items } from "./ProjectData"
-import { useEffect, useState } from "react"
+import { useEffect, useState, memo, useMemo } from "react"
 import { motion, useReducedMotion } from "motion/react"
 
 type ProjectProps = {
     title: string
     subtitle: string
 }
+
+const ProjectsGrid = memo(function ProjectsGrid() {
+    // items is imported; pre-sort once with useMemo
+    const sorted = useMemo(
+        () =>
+            [...items].sort(
+                (a, b) =>
+                    new Date(b.publishedAt).getTime() -
+                    new Date(a.publishedAt).getTime()
+            ),
+        []
+    )
+    return (
+        <div
+            className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 gap-7 py-12 [content-visibility:auto] [contain-intrinsic-size:1px_480px]"
+            aria-label="Project portfolio grid"
+        >
+            {sorted.map((item) => (
+                <ProjectCard key={item.title} {...item} />
+            ))}
+        </div>
+    )
+})
 
 export default function ProjectSection({ title, subtitle }: ProjectProps) {
     const [sentinelRef, sentinelInView] = useInView({
@@ -80,20 +103,7 @@ export default function ProjectSection({ title, subtitle }: ProjectProps) {
                 </div>
 
                 {/* RIGHT COLUMN (grid item #2) */}
-                <div
-                    className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 gap-7 py-12"
-                    aria-label="Project portfolio grid"
-                >
-                    {items
-                        .sort((a, b) =>
-                            new Date(a.publishedAt) > new Date(b.publishedAt)
-                                ? -1
-                                : 1
-                        )
-                        .map((item) => (
-                            <ProjectCard key={item.title} {...item} />
-                        ))}
-                </div>
+                <ProjectsGrid />
             </div>
         </section>
     )
