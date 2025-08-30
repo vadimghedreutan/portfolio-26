@@ -5,39 +5,46 @@ import Lenis from "lenis"
 
 export function LenisProvider({ children }: { children: ReactNode }) {
     const lenisRef = useRef<Lenis | null>(null)
+    const rafIdRef = useRef<number | null>(null)
 
     useEffect(() => {
-        // Only initialize Lenis on the client side
         if (typeof window === "undefined") return
+        if (lenisRef.current) return
+
+        const prefersReduced = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches
 
         try {
             const lenis = new Lenis({
-                duration: 1.2, // Animation duration
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Easing function
-                lerp: 0.1, // Smoothness (0 = instant, 1 = never)
-                smoothWheel: true, // Enable smooth wheel scrolling
-                wheelMultiplier: 1, // Wheel sensitivity
-                touchMultiplier: 2, // Touch sensitivity
-                infinite: false, // Disable infinite scrolling
+                // Choose ONE smoothing strategy → duration (remove lerp)
+                duration: prefersReduced ? 0.6 : 1.0, // slightly shorter for 120Hz
+                // ease-out with minimal tail; avoids floaty feel on ProMotion
+                easing: (t: number) => 1 - Math.pow(1 - t, 3),
+                smoothWheel: !prefersReduced,
+                syncTouch: true,
+                wheelMultiplier: 1, // keep neutral; tweak 0.9–1.1 if needed
+                touchMultiplier: 1.6, // trackpad pace; lower if it feels “slippery”
+                infinite: false,
             })
 
             lenisRef.current = lenis
 
-            function raf(time: number) {
+            const raf = (time: number) => {
                 lenis.raf(time)
-                requestAnimationFrame(raf)
+                rafIdRef.current = requestAnimationFrame(raf)
             }
-            requestAnimationFrame(raf)
+            rafIdRef.current = requestAnimationFrame(raf)
 
             return () => {
-                if (lenisRef.current) {
-                    lenisRef.current.destroy()
-                    lenisRef.current = null
-                }
+                if (rafIdRef.current != null)
+                    cancelAnimationFrame(rafIdRef.current)
+                rafIdRef.current = null
+                lenisRef.current?.destroy()
+                lenisRef.current = null
             }
-        } catch (error) {
-            console.error("Failed to initialize Lenis:", error)
-            // Fallback to normal scrolling if Lenis fails
+        } catch (e) {
+            console.error("Lenis init failed:", e)
         }
     }, [])
 
