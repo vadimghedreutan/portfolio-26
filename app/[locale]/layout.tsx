@@ -12,7 +12,6 @@ import {
 import { routing } from "@/i18n/routing"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
-import { LenisProvider } from "../providers/LenisProvider"
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }))
@@ -104,18 +103,19 @@ export default async function RootLayout({
     const messages = await getMessages()
 
     return (
-        <html lang={locale} className={bricolageGrotesque.className}>
+        <html
+            lang={locale}
+            className={`${bricolageGrotesque.className} scroll-smooth`}
+        >
             <body className="antialiased">
                 <NextIntlClientProvider messages={messages}>
-                    <LenisProvider>
-                        <div className="flex flex-col min-h-screen">
-                            <Header />
-                            <main className="flex-1">{children}</main>
-                            <div className="mt-auto">
-                                <Footer />
-                            </div>
+                    <div className="flex flex-col min-h-screen">
+                        <Header />
+                        <main className="flex-1">{children}</main>
+                        <div className="mt-auto">
+                            <Footer />
                         </div>
-                    </LenisProvider>
+                    </div>
                 </NextIntlClientProvider>
             </body>
         </html>
