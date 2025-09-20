@@ -24,7 +24,7 @@ const ProjectsGrid = memo(function ProjectsGrid() {
     )
     return (
         <div
-            className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 gap-7 py-12 [content-visibility:auto] [contain-intrinsic-size:1px_480px]"
+            className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 3xl:grid-cols-4 gap-7 py-12"
             aria-label="Project portfolio grid"
         >
             {sorted.map((item) => (
