@@ -30,7 +30,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/node": "^22.17.1",
+    "@types/node": "^24.13.3",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
@@ -41,6 +41,6 @@
     "typescript": "^5"
   },
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   }
 }
