@@ -27,8 +27,16 @@
     "name": "Hours Invested"
   },
   "project": {
-    "subtitle": "and everything in between",
-    "title": "I do"
+    "githubLink": "GitHub",
+    "moreOnGithub": "More on GitHub",
+    "moreOnGithubContext": "GitHub profile",
+    "projectCount": "{count, plural, one {# project} other {# projects}}",
+    "selectedProjects": "Selected projects",
+    "specialtyDevelopment": "Development",
+    "specialtyNetworking": "Networking",
+    "specialtySystemAdmin": "System Administration",
+    "title": "What I do",
+    "visitWebsite": "Visit website"
   },
   "metadata": {
     "description": "Developer, System Administrator, and creator.",

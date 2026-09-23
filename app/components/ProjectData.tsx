@@ -6,6 +6,36 @@ export interface Project {
     publishedAt: string
 }
 
+export const GITHUB_PROFILE_URL = "https://github.com/vadimghedreutan"
+
+function isGithubRepoUrl(url: string): boolean {
+    try {
+        const parsed = new URL(url)
+        if (!parsed.hostname.replace(/^www\./, "").includes("github.com")) {
+            return false
+        }
+        const segments = parsed.pathname.split("/").filter(Boolean)
+        return segments.length >= 2
+    } catch {
+        return false
+    }
+}
+
+export function getProjectLinks(project: Project): {
+    github?: string
+    website?: string
+} {
+    if (isGithubRepoUrl(project.link)) {
+        return { github: project.link }
+    }
+
+    return { website: project.link }
+}
+
+export function formatProjectTech(description: string): string {
+    return description.replace(/,\s*/g, " • ")
+}
+
 export const projects: Project[] = [
     {
         title: "Python Linux Blog",
