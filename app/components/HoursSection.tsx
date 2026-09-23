@@ -37,7 +37,7 @@ export default function HoursSection({ name }: HourProp) {
     )
 
     return (
-        <section id="about" className="py-4">
+        <section id="hours" className="py-4">
             <div className="flex flex-col gap-3">
                 <div className="flex items-center space-x-3">
                     <Badge className="rounded-3xl px-5 text-lg">20K+</Badge>

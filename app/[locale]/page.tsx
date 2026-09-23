@@ -12,9 +12,8 @@ export default async function Home({
 }) {
     await params
 
-    const [h, a, i] = await Promise.all([
+    const [h, i] = await Promise.all([
         getTranslations("hero"),
-        getTranslations("about"),
         getTranslations("hours"),
     ])
 
@@ -31,11 +30,7 @@ export default async function Home({
                 availabilityUnavailable={h("availabilityUnavailable")}
             />
             <ProjectSection />
-            <AboutSection
-                name={a("name")}
-                description_first={a("description_first")}
-                description_second={a("description_second")}
-            />
+            <AboutSection />
             <HoursSection name={i("name")} />
         </main>
     )

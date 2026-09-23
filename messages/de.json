@@ -6,9 +6,22 @@
     "projects": "Projekte"
   },
   "about": {
-    "description_first": "Geboren und aufgewachsen in Chișinău, Republik Moldau, begann ich meine berufliche Laufbahn in Portugal als Systemadministrator, bevor ich meinen Weg nach Deutschland fortsetzte. Im Laufe der Zeit war ich in verschiedenen Positionen außerhalb der Entwicklung tätig und betreute parallel freiberufliche Projekte in den Bereichen Webentwicklung und IT-Support.",
-    "description_second": "Ich erweitere kontinuierlich meine Fähigkeiten, erkunde neue Technologien und entwickle Anwendungen, die Ideen zum Leben erwecken. Ob für Kundenprojekte oder aus persönlicher Leidenschaft – ich liebe es, funktionale und gut gestaltete digitale Erlebnisse zu schaffen, stets mit dem Anspruch, dass auch der Spaß am Prozess nicht zu kurz kommt.",
-    "name": "Länder"
+    "bioParagraph1": "Ich bin in Chișinău, Moldau, aufgewachsen und habe meine IT-Karriere in Portugal als Systemadministrator begonnen. Heute lebe ich in Deutschland und bringe diese praktische Erfahrung in Webentwicklung und IT-Support ein.",
+    "bioParagraph2": "Neben Tätigkeiten außerhalb der Tech-Branche habe ich weiterhin freiberufliche Webprojekte umgesetzt. Derzeit vertiefe ich meine Kenntnisse in Java, Spring Boot und DevOps – mit dem Ziel, Software zu entwickeln, die klar, wartbar und zuverlässig ist.",
+    "currentFocus": "Java · Spring Boot · Linux · Docker",
+    "currentFocusLabel": "Aktueller Fokus",
+    "headlineLine1": "Von Systemen",
+    "headlineLine2": "zur Software.",
+    "journeyLine1": "Drei Länder.",
+    "journeyLine2": "Ein neugieriger Geist.",
+    "sectionNumber": "03",
+    "sectionTitle": "Über mich",
+    "timelineGermanyCountry": "Deutschland",
+    "timelineGermanyDetail": "Wohnhaft in Pforzheim",
+    "timelineMoldovaCountry": "Moldau",
+    "timelineMoldovaDetail": "Geboren in Chișinău",
+    "timelinePortugalCountry": "Portugal",
+    "timelinePortugalDetail": "Systemadministration"
   },
   "contact": {
     "description": "Design und Entwicklung von mir.",

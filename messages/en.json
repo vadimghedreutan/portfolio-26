@@ -6,9 +6,22 @@
     "projects": "Projects"
   },
   "about": {
-    "description_first": "Born and raised in Chișinău, Republic of Moldova, I began my career in Portugal as a\nSystem Administrator before moving to Germany. Along the way, I worked in various roles outside of development while pursuing freelance projects in web development and IT support.",
-    "description_second": "I’m continuously expanding my skills, exploring emerging technologies, and building apps that bring ideas to life. Whether for client work or personal passion, I love creating functional, well-designed digital experiences — always making sure there’s a bit of fun in the process.",
-    "name": "Countries"
+    "bioParagraph1": "I grew up in Chișinău, Moldova, and began my IT career as a systems administrator in Portugal. Now based in Germany, I bring that practical background to web development and IT support.",
+    "bioParagraph2": "Alongside roles outside tech, I've continued building freelance web projects. I'm now developing my skills in Java, Spring Boot, and DevOps, with a focus on software that is clear, maintainable, and reliable.",
+    "currentFocus": "Java · Spring Boot · Linux · Docker",
+    "currentFocusLabel": "Current focus",
+    "headlineLine1": "From systems",
+    "headlineLine2": "to software.",
+    "journeyLine1": "Three countries.",
+    "journeyLine2": "One curious mind.",
+    "sectionNumber": "03",
+    "sectionTitle": "About me",
+    "timelineGermanyCountry": "Germany",
+    "timelineGermanyDetail": "Based in Pforzheim",
+    "timelineMoldovaCountry": "Moldova",
+    "timelineMoldovaDetail": "Born in Chișinău",
+    "timelinePortugalCountry": "Portugal",
+    "timelinePortugalDetail": "Systems administration"
   },
   "contact": {
     "description": "Design and development by me.",
