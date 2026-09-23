@@ -6,7 +6,7 @@ export interface Project {
     publishedAt: string
 }
 
-export const GITHUB_PROFILE_URL = "https://github.com/vadimghedreutan"
+export { GITHUB_PROFILE_URL } from "@/lib/contact"
 
 function isGithubRepoUrl(url: string): boolean {
     try {

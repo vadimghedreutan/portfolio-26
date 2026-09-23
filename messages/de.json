@@ -22,8 +22,15 @@
     "timelinePortugalDetail": "Systemadministration"
   },
   "contact": {
-    "description": "Design und Entwicklung von mir.",
-    "name": "Kontakt"
+    "copyright": "© {year} Vadim Ghedreutan",
+    "footerCredit": "Design und Entwicklung von mir.",
+    "github": "GitHub",
+    "headline": "Lass uns reden.",
+    "linkedin": "LinkedIn",
+    "sectionNumber": "05",
+    "sectionTitle": "Kontakt",
+    "sendEmail": "E-Mail senden",
+    "supporting": "Du hast ein Projekt im Sinn oder eine Rolle, die zu mir passen könnte? Ich freue mich, von dir zu hören."
   },
   "hero": {
     "availabilityAvailable": "Verfügbar für Backend- und DevOps-Möglichkeiten",
