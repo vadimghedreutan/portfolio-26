@@ -16,10 +16,10 @@ export default function LocaleSwitcher() {
                     key={l}
                     href={pathname}
                     locale={l}
-                    className={`text-sm px-2 py-1 font-semibold transition-opacity ${
+                    className={`rounded-sm px-1 py-0.5 text-sm font-medium transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         l === locale
-                            ? "opacity-100 underline"
-                            : "opacity-60 hover:opacity-100"
+                            ? "text-foreground underline decoration-foreground underline-offset-4"
+                            : "text-foreground/60 hover:text-foreground"
                     }`}
                     aria-current={l === locale ? "true" : undefined}
                     aria-label={`Switch language to ${l.toUpperCase()}`}

@@ -3,13 +3,14 @@ import Hero from "../components/Hero"
 import ProjectSection from "../components/ProjectSection"
 import AboutSection from "../components/AboutSection"
 import HoursSection from "../components/HoursSection"
+import { getAvailabilityStatus } from "@/lib/availability"
 
 export default async function Home({
     params,
 }: {
     params: Promise<{ locale: string }>
 }) {
-    await params // locale is not used, so we just await it
+    await params
 
     const [h, p, a, i] = await Promise.all([
         getTranslations("hero"),
@@ -19,11 +20,16 @@ export default async function Home({
     ])
 
     return (
-        <main className="px-5 sm:px-10">
+        <main className="mx-auto w-full max-w-6xl px-5 sm:px-10">
             <Hero
-                title={h("title")}
-                name={h("name")}
-                subtitle={h("subtitle")}
+                greeting={h("greeting")}
+                headline={h("headline")}
+                description={h("description")}
+                exploreProjects={h("exploreProjects")}
+                contactMe={h("contactMe")}
+                availabilityStatus={getAvailabilityStatus()}
+                availabilityAvailable={h("availabilityAvailable")}
+                availabilityUnavailable={h("availabilityUnavailable")}
             />
             <ProjectSection title={p("title")} subtitle={p("subtitle")} />
             <AboutSection
