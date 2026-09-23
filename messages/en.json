@@ -8,8 +8,6 @@
   "about": {
     "bioParagraph1": "I grew up in Chișinău, Moldova, and began my IT career as a systems administrator in Portugal. Now based in Germany, I bring that practical background to web development and IT support.",
     "bioParagraph2": "Alongside roles outside tech, I've continued building freelance web projects. I'm now developing my skills in Java, Spring Boot, and DevOps, with a focus on software that is clear, maintainable, and reliable.",
-    "currentFocus": "Java · Spring Boot · Linux · Docker",
-    "currentFocusLabel": "Current focus",
     "headlineLine1": "From systems",
     "headlineLine2": "to software.",
     "journeyLine1": "Three countries.",
@@ -36,8 +34,21 @@
     "greeting": "Hello, I'm Vadim.",
     "headline": "I turn ideas into reliable products."
   },
-  "hours": {
-    "name": "Hours Invested"
+  "skills": {
+    "group1Description": "Building interfaces and websites for personal and client projects.",
+    "group1Label": "Web development",
+    "group1Technologies": "React · Next.js · Tailwind CSS",
+    "group2Description": "A practical foundation in systems administration and troubleshooting.",
+    "group2Label": "Systems & networking",
+    "group2Technologies": "Linux · Networking · IT support",
+    "group3Description": "Expanding my backend development and DevOps skills.",
+    "group3Label": "Currently developing",
+    "group3Technologies": "Java · Spring Boot · Docker",
+    "introLine1": "What I build",
+    "introLine2": "with.",
+    "introSupporting": "Practical experience, with room to keep growing.",
+    "sectionNumber": "04",
+    "sectionTitle": "Skills & tools"
   },
   "project": {
     "githubLink": "GitHub",

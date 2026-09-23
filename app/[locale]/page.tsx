@@ -12,10 +12,7 @@ export default async function Home({
 }) {
     await params
 
-    const [h, i] = await Promise.all([
-        getTranslations("hero"),
-        getTranslations("hours"),
-    ])
+    const h = await getTranslations("hero")
 
     return (
         <main className="mx-auto w-full max-w-6xl px-5 sm:px-10">
@@ -31,7 +28,7 @@ export default async function Home({
             />
             <ProjectSection />
             <AboutSection />
-            <HoursSection name={i("name")} />
+            <HoursSection />
         </main>
     )
 }

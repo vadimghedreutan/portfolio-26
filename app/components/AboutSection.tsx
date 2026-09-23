@@ -116,19 +116,6 @@ export default function AboutSection() {
                         <p>{t("bioParagraph1")}</p>
                         <p>{t("bioParagraph2")}</p>
                     </div>
-
-                    <div className="mt-10 max-w-[42rem]">
-                        <hr
-                            className="border-border"
-                            aria-hidden="true"
-                        />
-                        <p className="mt-6 text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase">
-                            {t("currentFocusLabel")}
-                        </p>
-                        <p className="mt-2 text-base text-foreground sm:text-lg">
-                            {t("currentFocus")}
-                        </p>
-                    </div>
                 </div>
             </motion.div>
         </section>
