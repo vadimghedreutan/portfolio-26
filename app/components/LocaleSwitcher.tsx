@@ -16,6 +16,7 @@ export default function LocaleSwitcher() {
                     key={l}
                     href={pathname}
                     locale={l}
+                    prefetch={false}
                     className={`rounded-sm px-1 py-0.5 text-sm font-medium transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                         l === locale
                             ? "text-foreground underline decoration-foreground underline-offset-4"

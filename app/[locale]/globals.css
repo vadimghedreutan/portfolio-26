@@ -111,4 +111,24 @@
   .text-about {
     @apply tracking-[-.08rem] xl:text-[2rem] sm:text-2xl text-xl font-light leading-[130%];
   }
+
+  .intro-cards-float {
+    animation: intro-cards-float 16s ease-in-out infinite;
+  }
+}
+
+@keyframes intro-cards-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -6px, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-cards-float {
+    animation: none;
+  }
 }

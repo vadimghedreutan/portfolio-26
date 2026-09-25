@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import { motion, useReducedMotion } from "motion/react"
 import { useTranslations } from "next-intl"
 
@@ -22,9 +23,7 @@ export default function AboutSection() {
     const t = useTranslations("about")
     const reduceMotion = useReducedMotion() ?? false
 
-    const sectionReveal = reduceMotion
-        ? { opacity: 1 }
-        : { opacity: 1, y: 0 }
+    const sectionReveal = reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
     const sectionInitial = reduceMotion ? false : { opacity: 0, y: 16 }
 
     return (
@@ -49,7 +48,7 @@ export default function AboutSection() {
             </div>
 
             <motion.div
-                className="mt-10 grid items-start gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,18fr)] lg:mt-12 lg:gap-16 xl:gap-24"
+                className="mt-10 grid items-start gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:grid-rows-[auto_1fr] md:gap-x-10 md:gap-y-8 lg:mt-12 lg:gap-x-16 xl:gap-x-20"
                 initial={sectionInitial}
                 whileInView={sectionReveal}
                 viewport={{ once: true, amount: 0.15 }}
@@ -59,14 +58,38 @@ export default function AboutSection() {
                         : { duration: 0.45, ease: "easeOut" }
                 }
             >
-                <div className="min-w-0 lg:max-w-xs">
+                <div className="min-w-0 md:col-start-1 md:row-start-1">
+                    <Image
+                        src="/profile_art.webp"
+                        alt={t("portraitAlt")}
+                        width={887}
+                        height={861}
+                        sizes="(min-width: 1024px) 280px, (min-width: 768px) 30vw, 260px"
+                        className="h-auto w-full max-w-[260px] -rotate-[1.5deg] rounded-2xl shadow-[0_12px_32px_-16px_rgba(0,0,0,0.35)] md:max-w-[280px] lg:-rotate-3"
+                    />
+                </div>
+
+                <div className="min-w-0 md:col-start-2 md:row-span-2 md:row-start-1">
+                    <h3 className="text-[clamp(1.75rem,4vw,2.75rem)] font-bold leading-[1.12] tracking-[-0.03em] text-foreground">
+                        {t("headlineLine1")}
+                        <br />
+                        {t("headlineLine2")}
+                    </h3>
+
+                    <div className="mt-6 max-w-[42rem] space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg sm:leading-relaxed lg:mt-8">
+                        <p>{t("bioParagraph1")}</p>
+                        <p>{t("bioParagraph2")}</p>
+                    </div>
+                </div>
+
+                <div className="min-w-0 md:col-start-1 md:row-start-2">
                     <h3 className="text-xl font-semibold leading-snug tracking-tight text-foreground sm:text-2xl">
                         {t("journeyLine1")}
                         <br />
                         {t("journeyLine2")}
                     </h3>
 
-                    <ol className="relative mt-8 space-y-8 border-l border-border pl-6 sm:pl-7">
+                    <ol className="relative mt-5 space-y-4 border-l border-border pl-6 sm:pl-7">
                         {timelineKeys.map(({ country, detail }, index) => (
                             <motion.li
                                 key={country}
@@ -103,19 +126,6 @@ export default function AboutSection() {
                             </motion.li>
                         ))}
                     </ol>
-                </div>
-
-                <div className="min-w-0">
-                    <h3 className="text-[clamp(1.75rem,4vw,2.75rem)] font-bold leading-[1.12] tracking-[-0.03em] text-foreground">
-                        {t("headlineLine1")}
-                        <br />
-                        {t("headlineLine2")}
-                    </h3>
-
-                    <div className="mt-8 max-w-[42rem] space-y-6 text-base leading-relaxed text-muted-foreground sm:text-lg sm:leading-relaxed">
-                        <p>{t("bioParagraph1")}</p>
-                        <p>{t("bioParagraph2")}</p>
-                    </div>
                 </div>
             </motion.div>
         </section>

@@ -1,9 +1,6 @@
 import { getTranslations } from "next-intl/server"
-import Hero from "../components/Hero"
-import ProjectSection from "../components/ProjectSection"
+import IntroSection from "../components/IntroSection"
 import AboutSection from "../components/AboutSection"
-import HoursSection from "../components/HoursSection"
-import { getAvailabilityStatus } from "@/lib/availability"
 
 export default async function Home({
     params,
@@ -16,19 +13,14 @@ export default async function Home({
 
     return (
         <main className="mx-auto w-full max-w-6xl px-5 sm:px-10">
-            <Hero
+            <IntroSection
                 greeting={h("greeting")}
                 headline={h("headline")}
                 description={h("description")}
-                exploreProjects={h("exploreProjects")}
                 contactMe={h("contactMe")}
-                availabilityStatus={getAvailabilityStatus()}
-                availabilityAvailable={h("availabilityAvailable")}
-                availabilityUnavailable={h("availabilityUnavailable")}
+                aboutMe={h("aboutMe")}
             />
-            <ProjectSection />
             <AboutSection />
-            <HoursSection />
         </main>
     )
 }

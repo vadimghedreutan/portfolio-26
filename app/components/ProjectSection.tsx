@@ -1,6 +1,5 @@
 "use client"
 
-import { useInView } from "react-intersection-observer"
 import {
     items,
     getProjectLinks,
@@ -8,15 +7,9 @@ import {
     GITHUB_PROFILE_URL,
 } from "./ProjectData"
 import type { Project } from "./ProjectData"
-import { useEffect, useState, useMemo } from "react"
+import { useMemo } from "react"
 import { motion, useReducedMotion } from "motion/react"
 import { useTranslations } from "next-intl"
-
-const specialtyKeys = [
-    "specialtyDevelopment",
-    "specialtyNetworking",
-    "specialtySystemAdmin",
-] as const
 
 function ProjectLink({
     href,
@@ -128,20 +121,7 @@ function ProjectRow({
 
 export default function ProjectSection() {
     const t = useTranslations("project")
-    const prefersReduced = useReducedMotion()
-    const reduceMotion = prefersReduced ?? false
-
-    const [sentinelRef, sentinelInView] = useInView({
-        rootMargin: "-20px 0px 0px 0px",
-        threshold: 0,
-        triggerOnce: false,
-        initialInView: true,
-        fallbackInView: true,
-    })
-
-    const [mounted, setMounted] = useState(false)
-    useEffect(() => setMounted(true), [])
-    const isStickyActive = mounted ? !sentinelInView : false
+    const reduceMotion = useReducedMotion() ?? false
 
     const sorted = useMemo(
         () =>
@@ -158,92 +138,53 @@ export default function ProjectSection() {
     return (
         <section
             id="projects"
-            className="py-14 sm:py-20 lg:py-24"
+            className="border-t border-border py-14 sm:py-20 lg:py-24"
             aria-labelledby="projects-heading"
         >
-            <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,18fr)] lg:gap-16 xl:gap-24">
-                <div className="relative min-w-0 space-y-2 lg:max-w-xs">
-                    <div
-                        ref={sentinelRef}
-                        aria-hidden="true"
-                        className="absolute -top-20 left-0 h-px w-px"
-                    />
-
-                    <div className="flex flex-col justify-start space-y-2 xl:sticky xl:top-20 xl:h-fit">
-                        <motion.div
-                            className="flex flex-col space-y-4"
-                            style={{ transformOrigin: "top left" }}
-                            animate={
-                                isStickyActive
-                                    ? { scale: 0.97, opacity: 0.9 }
-                                    : { scale: 1, opacity: 1 }
-                            }
-                            transition={
-                                prefersReduced
-                                    ? { duration: 0 }
-                                    : { duration: 0.3, ease: "easeOut" }
-                            }
-                        >
-                            <h2
-                                id="projects-heading"
-                                className="text-3xl font-bold tracking-[-0.03em] text-foreground sm:text-4xl"
-                            >
-                                {t("title")}
-                            </h2>
-                            <div
-                                className={`flex flex-wrap gap-2 xl:flex-col xl:gap-3 ${
-                                    isStickyActive ? "badges--dark" : ""
-                                }`}
-                            >
-                                {specialtyKeys.map((key) => (
-                                    <span key={key} className="badge">
-                                        {t(key)}
-                                    </span>
-                                ))}
-                            </div>
-                        </motion.div>
-                    </div>
+            <div className="min-w-0">
+                <h2
+                    id="projects-heading"
+                    className="sr-only"
+                >
+                    {t("selectedProjects")}
+                </h2>
+                <div className="flex items-baseline justify-between gap-4 border-b border-border pb-3">
+                    <p className="text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase">
+                        {t("selectedProjects")}
+                    </p>
+                    <p
+                        className="text-xs tabular-nums text-muted-foreground"
+                        aria-label={t("projectCount", {
+                            count: sorted.length,
+                        })}
+                    >
+                        {countLabel}
+                    </p>
                 </div>
 
-                <div className="min-w-0">
-                    <div className="flex items-baseline justify-between gap-4 border-b border-border pb-3">
-                        <p className="text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase">
-                            {t("selectedProjects")}
-                        </p>
-                        <p
-                            className="text-xs tabular-nums text-muted-foreground"
-                            aria-label={t("projectCount", {
-                                count: sorted.length,
-                            })}
-                        >
-                            {countLabel}
-                        </p>
+                <ul aria-label={t("selectedProjects")}>
+                    {sorted.map((project, i) => (
+                        <ProjectRow
+                            key={project.title}
+                            project={project}
+                            index={i + 1}
+                            reduceMotion={reduceMotion}
+                            githubLabel={t("githubLink")}
+                            websiteLabel={t("visitWebsite")}
+                        />
+                    ))}
+                </ul>
+
+                {GITHUB_PROFILE_URL ? (
+                    <div className="pt-5">
+                        <ProjectLink
+                            href={GITHUB_PROFILE_URL}
+                            label={t("moreOnGithub")}
+                            projectTitle={t("moreOnGithubContext")}
+                            reduceMotion={reduceMotion}
+                        />
                     </div>
-
-                    <ul aria-label={t("selectedProjects")}>
-                        {sorted.map((project, i) => (
-                            <ProjectRow
-                                key={project.title}
-                                project={project}
-                                index={i + 1}
-                                reduceMotion={reduceMotion}
-                                githubLabel={t("githubLink")}
-                                websiteLabel={t("visitWebsite")}
-                            />
-                        ))}
-                    </ul>
-
-                    {GITHUB_PROFILE_URL ? (
-                        <div className="pt-5">
-                            <ProjectLink
-                                href={GITHUB_PROFILE_URL}
-                                label={t("moreOnGithub")}
-                                projectTitle={t("moreOnGithubContext")}
-                                reduceMotion={reduceMotion}
-                            />
-                        </div>
-                    ) : null}
-                </div>
+                ) : null}
             </div>
         </section>
     )
