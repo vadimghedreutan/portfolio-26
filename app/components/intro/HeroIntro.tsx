@@ -1,6 +1,22 @@
 "use client"
 
 import { motion, useReducedMotion } from "motion/react"
+import {
+    ArrowUpRight,
+    Coffee,
+    Container,
+    Leaf,
+    Ship,
+    Workflow,
+} from "lucide-react"
+
+const STACK = [
+    { label: "Java", Icon: Coffee },
+    { label: "Spring Boot", Icon: Leaf },
+    { label: "Docker", Icon: Container },
+    { label: "Kubernetes", Icon: Ship },
+    { label: "CI/CD", Icon: Workflow },
+]
 
 type HeroIntroProps = {
     greeting: string
@@ -27,12 +43,12 @@ function ArrowLink({
             <span>{label}</span>
             <motion.span
                 aria-hidden
-                className="inline-block transition-transform group-focus-visible/about:translate-x-0.5 group-focus-visible/about:-translate-y-0.5"
+                className="inline-flex transition-transform group-focus-visible/about:translate-x-0.5 group-focus-visible/about:-translate-y-0.5"
                 initial={false}
                 whileHover={reduceMotion ? undefined : { x: 2, y: -2 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
             >
-                ↗
+                <ArrowUpRight size={16} aria-hidden />
             </motion.span>
         </a>
     )
@@ -68,6 +84,17 @@ export default function HeroIntro({
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg xl:max-w-[25rem]">
                 {description}
             </p>
+            <ul className="-mt-1 flex max-w-xl flex-wrap gap-2 xl:max-w-[25rem]">
+                {STACK.map(({ label, Icon }) => (
+                    <li
+                        key={label}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-xs font-medium text-foreground"
+                    >
+                        <Icon className="size-3.5 text-muted-foreground" aria-hidden />
+                        {label}
+                    </li>
+                ))}
+            </ul>
             <div className="flex flex-wrap items-center gap-4 pt-1">
                 <a
                     href="#contact"

@@ -9,6 +9,7 @@ import {
 import type { Project } from "./ProjectData"
 import { useMemo } from "react"
 import { motion, useReducedMotion } from "motion/react"
+import { ArrowUpRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 function ProjectLink({
@@ -33,12 +34,12 @@ function ProjectLink({
             <span>{label}</span>
             <motion.span
                 aria-hidden
-                className="inline-block transition-transform group-focus-visible/link:translate-x-0.5 group-focus-visible/link:-translate-y-0.5"
+                className="inline-flex transition-transform group-focus-visible/link:translate-x-0.5 group-focus-visible/link:-translate-y-0.5"
                 initial={false}
                 whileHover={reduceMotion ? undefined : { x: 2, y: -2 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
             >
-                ↗
+                <ArrowUpRight size={16} aria-hidden />
             </motion.span>
         </a>
     )

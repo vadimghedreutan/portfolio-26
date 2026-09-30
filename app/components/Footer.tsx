@@ -1,6 +1,7 @@
 "use client"
 
 import { motion, useReducedMotion } from "motion/react"
+import { ArrowUpRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 import {
     CONTACT_EMAIL_HREF,
@@ -27,12 +28,12 @@ function ContactTextLink({
             <span>{label}</span>
             <motion.span
                 aria-hidden
-                className="inline-block transition-transform group-focus-visible/link:translate-x-0.5 group-focus-visible/link:-translate-y-0.5"
+                className="inline-flex transition-transform group-focus-visible/link:translate-x-0.5 group-focus-visible/link:-translate-y-0.5"
                 initial={false}
                 whileHover={reduceMotion ? undefined : { x: 2, y: -2 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
             >
-                ↗
+                <ArrowUpRight size={16} aria-hidden />
             </motion.span>
         </a>
     )
@@ -55,12 +56,12 @@ function EmailLink({
             <span>{label}</span>
             <motion.span
                 aria-hidden
-                className="inline-block transition-transform group-focus-visible/email:translate-x-0.5 group-focus-visible/email:-translate-y-0.5"
+                className="inline-flex transition-transform group-focus-visible/email:translate-x-0.5 group-focus-visible/email:-translate-y-0.5"
                 initial={false}
                 whileHover={reduceMotion ? undefined : { x: 2, y: -2 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
             >
-                ↗
+                <ArrowUpRight size={16} aria-hidden />
             </motion.span>
         </a>
     )
@@ -80,7 +81,7 @@ export default function Footer() {
         <footer className="mt-auto">
             <section
                 id="contact"
-                className="mx-auto w-full max-w-6xl px-5 py-14 sm:px-10 sm:py-20 lg:py-24"
+                className="mx-auto w-full max-w-6xl px-5 pt-14 pb-[calc(env(safe-area-inset-bottom)+2rem)] sm:px-10 sm:pt-20 sm:pb-20 lg:pt-24 lg:pb-24"
                 aria-labelledby="contact-heading"
             >
                 <div className="flex flex-col gap-3">

@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { useReducedMotion } from "motion/react"
 import { useTranslations } from "next-intl"
+import { ArrowUpRight, Pause, Play } from "lucide-react"
 import { GITHUB_PROFILE_URL } from "@/lib/contact"
 import { useDemoCycle } from "./useDemoCycle"
 import {
@@ -13,43 +14,66 @@ import {
     NetworkingCard,
     ServerCard,
     SystemAdminCard,
+    TERMINAL_COMMAND,
 } from "./WhatIDoCards"
 
 export default function WhatIDoComposition() {
     const t = useTranslations("whatIDo")
     const reduceMotion = useReducedMotion() ?? false
     const [paused, setPaused] = useState(false)
-    const [inView, setInView] = useState(true)
+    const [inView, setInView] = useState(false)
+    // Set once the terminal is actually on screen; cleared when the whole
+    // composition leaves the viewport. The cycle (and the typing, which starts
+    // at phase 0) only runs after this, so the prompt is never seen empty.
+    const [started, setStarted] = useState(false)
     const rootRef = useRef<HTMLDivElement>(null)
+    const terminalRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        const node = rootRef.current
-        if (!node) return
-        const observer = new IntersectionObserver(
-            ([entry]) => setInView(entry.isIntersecting),
+        const root = rootRef.current
+        const terminal = terminalRef.current
+        if (!root || !terminal) return
+        const rootObserver = new IntersectionObserver(
+            ([entry]) => {
+                setInView(entry.isIntersecting)
+                if (!entry.isIntersecting) setStarted(false)
+            },
             { threshold: 0.12 },
         )
-        observer.observe(node)
-        return () => observer.disconnect()
+        const terminalObserver = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) setStarted(true)
+            },
+            { threshold: 0.6 },
+        )
+        rootObserver.observe(root)
+        terminalObserver.observe(terminal)
+        return () => {
+            rootObserver.disconnect()
+            terminalObserver.disconnect()
+        }
     }, [])
 
     const animEnabled = !reduceMotion
     const { phase, progress } = useDemoCycle({
         enabled: animEnabled,
-        inView,
+        inView: inView && started,
         paused,
     })
 
     const activeMain = reduceMotion ? 0 : phase % 3
 
-    const commandLength = "pnpm dev".length
+    const commandLength = TERMINAL_COMMAND.length
 
     const typedLength = useMemo(() => {
-        if (reduceMotion || activeMain !== 0) return commandLength
+        // Before the card has been seen, show the finished command rather than
+        // an empty prompt.
+        if (reduceMotion || !started || activeMain !== 0) return commandLength
 
+        // Finish typing ~60% into the phase so "Started" stays readable.
         const local = (progress * 6) % 1
-        return Math.min(commandLength, Math.floor(local * 10))
-    }, [activeMain, progress, reduceMotion, commandLength])
+        return Math.min(commandLength, Math.floor(local * commandLength * 1.6))
+    }, [activeMain, progress, reduceMotion, started, commandLength])
 
     const showReady = typedLength >= commandLength
 
@@ -81,9 +105,27 @@ export default function WhatIDoComposition() {
             ref={rootRef}
             className="relative min-w-0 xl:[--bleed:calc((100vw_-_min(100vw,72rem))/2_+_2.5rem)] xl:mr-[calc(var(--bleed)*-1)]"
         >
-            <p className="mb-4 text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase xl:mb-0 xl:pl-1">
-                {t("sectionLabel")}
-            </p>
+            <div className="mb-3 flex items-center justify-between md:mb-4 xl:mb-0">
+                <p className="text-xs font-medium tracking-[0.14em] text-muted-foreground uppercase xl:pl-1">
+                    {t("sectionLabel")}
+                </p>
+                {animEnabled ? (
+                    <button
+                        type="button"
+                        onClick={togglePause}
+                        aria-label={
+                            paused ? t("playAnimation") : t("pauseAnimation")
+                        }
+                        className="-my-3 -mr-3 inline-flex size-11 items-center justify-center rounded-full text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:hidden"
+                    >
+                        {paused ? (
+                            <Play className="size-4" aria-hidden />
+                        ) : (
+                            <Pause className="size-4" aria-hidden />
+                        )}
+                    </button>
+                ) : null}
+            </div>
 
             <div className="relative xl:overflow-hidden">
                 <div
@@ -104,26 +146,30 @@ export default function WhatIDoComposition() {
                         reduceMotion ? "" : "intro-cards-float"
                     }`}
                 >
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:w-[990px] xl:origin-top-left xl:rotate-[1.5deg] xl:grid-cols-[330px_330px_300px] xl:gap-x-4 xl:gap-y-5">
+                    <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4 xl:w-[990px] xl:origin-top-left xl:rotate-[1.5deg] xl:grid-cols-[330px_330px_300px] xl:gap-x-4 xl:gap-y-5">
+                        <div
+                            ref={terminalRef}
+                            className="relative z-10 md:col-start-1 md:row-start-1 xl:self-start"
+                        >
                         <DevelopmentCard
                             active={activeMain === 0}
                             typedLength={typedLength}
                             showReady={showReady}
-                            className="relative z-10 md:col-start-1 md:row-start-1 xl:self-start"
                         />
+                        </div>
                         <NetworkingCard
                             active={activeMain === 1}
                             pulse={activeMain === 1 && !reduceMotion}
-                            className="relative z-10 md:col-start-2 md:row-start-1 xl:mt-4 xl:self-start"
+                            className="relative z-10 max-md:order-4 md:col-start-2 md:row-start-1 xl:mt-4 xl:self-start"
                         />
                         <SystemAdminCard
                             active={activeMain === 2}
                             visibleRows={visibleRows}
-                            className="relative z-20 md:col-span-2 md:row-start-2 xl:col-start-1 xl:-mt-7 xl:ml-[110px] xl:w-[500px] xl:self-start"
+                            className="relative z-20 max-md:order-3 md:col-span-2 md:row-start-2 xl:col-start-1 xl:-mt-7 xl:ml-[110px] xl:w-[500px] xl:self-start"
                         />
                         <DeploymentCard
                             visibleSteps={visibleSteps}
-                            className="relative z-0 hidden md:col-start-1 md:row-start-3 md:block xl:row-start-2 xl:mt-10 xl:w-[220px] xl:self-start"
+                            className="relative z-0 max-md:order-2 md:col-start-1 md:row-start-3 xl:row-start-2 xl:mt-10 xl:w-[220px] xl:self-start"
                         />
                         <div className="hidden flex-col gap-4 md:col-start-2 md:row-start-3 md:flex xl:col-start-3 xl:row-span-2 xl:row-start-1 xl:mt-2 xl:gap-5">
                             <ServerCard cpuPct={cpuPct} memPct={memPct} />
@@ -139,7 +185,7 @@ export default function WhatIDoComposition() {
                     <button
                         type="button"
                         onClick={togglePause}
-                        className="self-start rounded-sm text-xs font-medium text-muted-foreground underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:self-auto"
+                        className="hidden rounded-sm text-xs font-medium text-muted-foreground underline-offset-2 hover:text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:inline"
                     >
                         {paused ? t("resumeAnimation") : t("pauseAnimation")}
                     </button>
@@ -155,7 +201,7 @@ export default function WhatIDoComposition() {
                         className="inline-flex min-h-11 w-full items-center justify-center gap-0.5 rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
                     >
                         <span>{t("viewGithub")}</span>
-                        <span aria-hidden>↗</span>
+                        <ArrowUpRight size={16} aria-hidden />
                     </a>
                 ) : null}
             </div>

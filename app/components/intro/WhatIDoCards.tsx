@@ -12,8 +12,12 @@ import {
     Terminal,
     Activity,
     Container,
+    ChevronRight,
 } from "lucide-react"
+import { Fragment } from "react"
 import { useTranslations } from "next-intl"
+
+export const TERMINAL_COMMAND = "./mvnw spring-boot:run"
 
 function CardShell({
     children,
@@ -27,14 +31,14 @@ function CardShell({
     peripheral?: boolean
 }) {
     const tone = peripheral
-        ? "opacity-60 shadow-sm"
+        ? "shadow-sm md:opacity-60"
         : active
           ? "shadow-[0_10px_30px_-14px_rgba(0,0,0,0.22)] ring-1 ring-black/[0.04]"
           : "shadow-sm"
 
     return (
         <div
-            className={`rounded-2xl border border-border bg-white p-4 transition-shadow duration-700 ${tone} ${className}`}
+            className={`rounded-2xl border border-border bg-white p-3.5 transition-shadow md:p-4 duration-700 ${tone} ${className}`}
         >
             {children}
         </div>
@@ -51,15 +55,15 @@ function CardHeader({
     description: string
 }) {
     return (
-        <div className="flex items-start gap-3">
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-neutral-950 text-white">
+        <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2.5 gap-y-2 md:flex md:items-start md:gap-3">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neutral-950 text-white md:size-10 md:rounded-xl">
                 {icon}
             </span>
-            <div className="min-w-0">
+            <div className="contents md:block md:min-w-0">
                 <h3 className="text-base font-semibold leading-tight text-foreground">
                     {title}
                 </h3>
-                <p className="mt-1 text-[13px] leading-snug text-muted-foreground">
+                <p className="col-span-2 text-[13px] leading-snug text-muted-foreground md:mt-1">
                     {description}
                 </p>
             </div>
@@ -79,7 +83,7 @@ export function DevelopmentCard({
     className?: string
 }) {
     const t = useTranslations("whatIDo")
-    const command = "pnpm dev"
+    const command = TERMINAL_COMMAND
     const visible = command.slice(0, typedLength)
 
     return (
@@ -90,13 +94,13 @@ export function DevelopmentCard({
                 description={t("developmentDescription")}
             />
             <div className="mt-3 rounded-xl border border-border bg-neutral-50 px-3 py-2.5 font-mono text-xs">
-                <div className="mb-1.5 flex gap-1.5" aria-hidden>
+                <div className="mb-1.5 hidden gap-1.5 md:flex" aria-hidden>
                     <span className="size-2 rounded-full bg-red-400" />
                     <span className="size-2 rounded-full bg-amber-400" />
                     <span className="size-2 rounded-full bg-emerald-400" />
                 </div>
-                <p className="text-muted-foreground">~/portfolio</p>
-                <p className="mt-0.5 text-foreground">
+                <p className="hidden text-muted-foreground md:block">~/api</p>
+                <p className="text-foreground md:mt-0.5">
                     <span className="text-emerald-600">$</span> {visible}
                     {!showReady && typedLength < command.length ? (
                         <span
@@ -114,7 +118,7 @@ export function DevelopmentCard({
                     {t("terminalReady")}
                 </p>
             </div>
-            <div className="mt-3 flex flex-wrap gap-2">
+            <div className="mt-3 hidden flex-wrap gap-2 md:flex">
                 <span className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2 py-1 text-xs font-medium">
                     <span className="flex size-4 items-center justify-center rounded-full bg-neutral-950 text-[9px] text-white">
                         N
@@ -150,7 +154,22 @@ export function NetworkingCard({
                 title={t("networkingTitle")}
                 description={t("networkingDescription")}
             />
-            <div className="mt-4 flex flex-col items-center">
+            <div className="mt-3 flex flex-wrap items-center gap-1 md:hidden">
+                {["Internet", "Router", "Switch", "Server"].map((label, i) => (
+                    <Fragment key={label}>
+                        {i > 0 ? (
+                            <ChevronRight
+                                className="size-3 text-muted-foreground/50"
+                                aria-hidden
+                            />
+                        ) : null}
+                        <span className="rounded-lg border border-border bg-white px-2 py-1 text-xs font-medium shadow-xs">
+                            {label}
+                        </span>
+                    </Fragment>
+                ))}
+            </div>
+            <div className="mt-4 hidden flex-col items-center md:flex">
                 <TopologyNode
                     icon={<Globe className="size-3.5" />}
                     label="Internet"
@@ -277,26 +296,26 @@ export function SystemAdminCard({
                 description={t("sysadminDescription")}
             />
             <div className="mt-3 overflow-hidden rounded-xl border border-border">
-                <div className="grid grid-cols-[1fr_auto] gap-x-3 bg-neutral-50 px-3 py-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:grid-cols-[7rem_6rem_1fr]">
+                <div className="hidden grid-cols-[7rem_6rem_1fr] gap-x-3 bg-neutral-50 px-3 py-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:grid">
                     <span>{t("tableService")}</span>
                     <span>{t("tableStatus")}</span>
-                    <span className="hidden md:inline">
-                        {t("tableDescription")}
-                    </span>
+                    <span>{t("tableDescription")}</span>
                 </div>
                 {rows.map((row, i) => {
                     const revealed = i < visibleRows
                     return (
                         <div
                             key={row.service}
-                            className="grid grid-cols-[1fr_auto] items-center gap-x-3 border-t border-border px-3 py-2 text-sm md:grid-cols-[7rem_6rem_1fr]"
+                            className={`grid grid-cols-[1fr_auto] items-center gap-x-3 border-t border-border px-3 py-1.5 text-sm md:grid-cols-[7rem_6rem_1fr] md:py-2 ${
+                                i === 0 ? "max-md:border-t-0" : ""
+                            }`}
                         >
                             <div className="flex items-center gap-2 font-medium">
                                 {row.icon}
                                 {row.service}
                             </div>
                             <div
-                                className={`flex items-center gap-1.5 text-xs font-medium text-emerald-600 transition-opacity duration-500 ${
+                                className={`flex items-center justify-end gap-1.5 whitespace-nowrap text-xs font-medium text-emerald-600 transition-opacity md:justify-start duration-500 ${
                                     revealed ? "opacity-100" : "opacity-25"
                                 }`}
                             >
@@ -334,17 +353,25 @@ export function DeploymentCard({
 
     return (
         <CardShell peripheral className={className}>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2.5 md:hidden">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neutral-950 text-white">
+                    <Cloud className="size-4" aria-hidden />
+                </span>
+                <h3 className="text-base font-semibold leading-tight text-foreground">
+                    {t("deploymentTitle")}
+                </h3>
+            </div>
+            <div className="hidden items-center gap-2 md:flex">
                 <Cloud className="size-4 text-muted-foreground" aria-hidden />
                 <h4 className="text-sm font-semibold">
                     {t("deploymentTitle")}
                 </h4>
             </div>
-            <ul className="mt-3 space-y-2">
+            <ul className="mt-2.5 space-y-1.5 md:mt-3 md:space-y-2">
                 {steps.map((step, i) => (
                     <li
                         key={step}
-                        className="flex items-center gap-2 text-xs text-muted-foreground"
+                        className="flex items-center gap-2 text-[13px] text-muted-foreground md:text-xs"
                     >
                         <Check
                             className={`size-3.5 shrink-0 transition-colors duration-500 ${

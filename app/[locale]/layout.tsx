@@ -1,5 +1,5 @@
 import "./globals.css"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { notFound } from "next/navigation"
 import { Bricolage_Grotesque } from "next/font/google"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
@@ -12,6 +12,12 @@ import {
 import { routing } from "@/i18n/routing"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
+
+export const viewport: Viewport = {
+    width: "device-width",
+    initialScale: 1,
+    viewportFit: "cover",
+}
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }))

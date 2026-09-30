@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useId, useRef, useState } from "react"
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
-import { Menu, X } from "lucide-react"
+import { ArrowUpRight, Menu, X } from "lucide-react"
 import LocaleSwitcher from "./LocaleSwitcher"
 import { GITHUB_PROFILE_URL, LINKEDIN_URL } from "@/lib/contact"
 
@@ -20,7 +20,7 @@ function GithubPill({ label }: { label: string }) {
             className="inline-flex min-h-9 items-center gap-0.5 rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
             <span>{label}</span>
-            <span aria-hidden>↗</span>
+            <ArrowUpRight size={16} aria-hidden />
         </a>
     )
 }
@@ -52,6 +52,20 @@ export default function Header() {
         }
     }, [open])
 
+    // Mobile only: slide the header away while scrolling down, back on scroll up.
+    const [hidden, setHidden] = useState(false)
+    useEffect(() => {
+        let lastY = window.scrollY
+        const onScroll = () => {
+            const y = window.scrollY
+            if (Math.abs(y - lastY) < 8) return
+            setHidden(y > lastY && y > 80)
+            lastY = y
+        }
+        window.addEventListener("scroll", onScroll, { passive: true })
+        return () => window.removeEventListener("scroll", onScroll)
+    }, [])
+
     const navItems = (
         <>
             <a href="#about" className={navLinkClass} onClick={close}>
@@ -76,7 +90,11 @@ export default function Header() {
     )
 
     return (
-        <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm">
+        <header
+            className={`sticky top-0 z-50 w-full bg-white/95 transition-transform duration-300 max-md:border-b max-md:border-border md:backdrop-blur-sm ${
+                hidden && !open ? "max-md:-translate-y-full" : ""
+            }`}
+        >
             <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-4 sm:px-10 sm:py-5">
                 <Link
                     href="/"
