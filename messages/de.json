@@ -121,5 +121,11 @@
   "metadata": {
     "description": "Entwickler, Systemadministrator und Creator.",
     "keywords": "Vadim Ghedreutan, Entwickler, Systemadministrator, Frontend, Java Backend, React, Next.js"
+  },
+  "theme": {
+    "label": "Design",
+    "light": "Hell",
+    "system": "System",
+    "dark": "Dunkel"
   }
 }

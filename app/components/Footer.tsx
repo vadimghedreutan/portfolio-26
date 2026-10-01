@@ -51,7 +51,7 @@ function EmailLink({
     return (
         <a
             href={href}
-            className="group/email inline-flex min-h-11 items-center justify-center gap-0.5 rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-base"
+            className="group/email inline-flex min-h-11 items-center justify-center gap-0.5 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:text-base"
         >
             <span>{label}</span>
             <motion.span
@@ -86,7 +86,7 @@ export default function Footer() {
             >
                 <div className="flex flex-col gap-3">
                     <div className="flex items-center gap-3">
-                        <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-neutral-950 px-3.5 py-1 text-sm font-medium tabular-nums text-white">
+                        <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary px-3.5 py-1 text-sm font-medium tabular-nums text-primary-foreground">
                             {t("sectionNumber")}
                         </span>
                         <h2

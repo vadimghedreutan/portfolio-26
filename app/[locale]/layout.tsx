@@ -12,6 +12,7 @@ import {
 import { routing } from "@/i18n/routing"
 import Header from "../components/Header"
 import Footer from "../components/Footer"
+import { ThemeProvider } from "@/components/theme-provider"
 
 export const viewport: Viewport = {
     width: "device-width",
@@ -112,19 +113,27 @@ export default async function RootLayout({
         <html
             lang={locale}
             className={`${bricolageGrotesque.className} scroll-smooth`}
+            suppressHydrationWarning
         >
             <body className="antialiased">
-                <NextIntlClientProvider messages={messages}>
-                    <div className="flex flex-col min-h-screen">
-                        <Header />
-                        <main className="flex-1 overflow-x-clip">
-                            {children}
-                        </main>
-                        <div className="mt-auto">
-                            <Footer />
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <NextIntlClientProvider messages={messages}>
+                        <div className="flex flex-col min-h-screen">
+                            <Header />
+                            <main className="flex-1 overflow-x-clip">
+                                {children}
+                            </main>
+                            <div className="mt-auto">
+                                <Footer />
+                            </div>
                         </div>
-                    </div>
-                </NextIntlClientProvider>
+                    </NextIntlClientProvider>
+                </ThemeProvider>
             </body>
         </html>
     )

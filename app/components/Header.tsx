@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { ArrowUpRight, Menu, X } from "lucide-react"
 import LocaleSwitcher from "./LocaleSwitcher"
+import ThemeSwitcher from "@/components/theme-switcher"
 import { GITHUB_PROFILE_URL, LINKEDIN_URL } from "@/lib/contact"
 
 const navLinkClass =
@@ -17,7 +18,7 @@ function GithubPill({ label }: { label: string }) {
             href={GITHUB_PROFILE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-9 items-center gap-0.5 rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            className="inline-flex min-h-9 items-center gap-0.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
         >
             <span>{label}</span>
             <ArrowUpRight size={16} aria-hidden />
@@ -85,13 +86,14 @@ export default function Header() {
                 </a>
             ) : null}
             <LocaleSwitcher />
+            <ThemeSwitcher idPrefix="desktop" />
             <GithubPill label={t("github")} />
         </>
     )
 
     return (
         <header
-            className={`sticky top-0 z-50 w-full bg-white/95 transition-transform duration-300 max-md:border-b max-md:border-border md:backdrop-blur-sm ${
+            className={`sticky top-0 z-50 w-full bg-background/95 transition-transform duration-300 max-md:border-b max-md:border-border md:backdrop-blur-sm ${
                 hidden && !open ? "max-md:-translate-y-full" : ""
             }`}
         >
@@ -99,7 +101,7 @@ export default function Header() {
                 <Link
                     href="/"
                     prefetch={false}
-                    className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-neutral-950 font-serif text-lg text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-primary font-serif text-lg text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     aria-label="Go to homepage"
                 >
                     VG
@@ -135,10 +137,11 @@ export default function Header() {
             {open ? (
                 <nav
                     id={menuId}
-                    className="border-t border-border bg-white px-5 py-4 lg:hidden"
+                    className="border-t border-border bg-background px-5 py-4 lg:hidden"
                     aria-label="Mobile"
                 >
                     <div className="mx-auto flex max-w-6xl flex-col gap-4">
+                        <ThemeSwitcher idPrefix="mobile" className="self-start" />
                         <a href="#about" className={navLinkClass} onClick={close}>
                             {t("about")}
                         </a>

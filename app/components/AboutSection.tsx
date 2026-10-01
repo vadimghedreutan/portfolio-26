@@ -34,7 +34,7 @@ export default function AboutSection() {
         >
             <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-3">
-                    <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-neutral-950 px-3.5 py-1 text-sm font-medium tabular-nums text-white">
+                    <span className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary px-3.5 py-1 text-sm font-medium tabular-nums text-primary-foreground">
                         {t("sectionNumber")}
                     </span>
                     <h2
@@ -65,7 +65,7 @@ export default function AboutSection() {
                         width={887}
                         height={861}
                         sizes="(min-width: 1024px) 280px, (min-width: 768px) 30vw, 260px"
-                        className="h-auto w-full max-w-[260px] -rotate-[1.5deg] rounded-2xl shadow-[0_12px_32px_-16px_rgba(0,0,0,0.35)] md:max-w-[280px] lg:-rotate-3"
+                        className="h-auto w-full max-w-[260px] -rotate-[1.5deg] rounded-2xl shadow-[0_12px_32px_-16px_rgba(0,0,0,0.35)] dark:shadow-none md:max-w-[280px] lg:-rotate-3"
                     />
                 </div>
 

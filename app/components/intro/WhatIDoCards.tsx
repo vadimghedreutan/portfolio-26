@@ -31,14 +31,14 @@ function CardShell({
     peripheral?: boolean
 }) {
     const tone = peripheral
-        ? "shadow-sm md:opacity-60"
+        ? "shadow-sm dark:shadow-none md:opacity-60"
         : active
-          ? "shadow-[0_10px_30px_-14px_rgba(0,0,0,0.22)] ring-1 ring-black/[0.04]"
-          : "shadow-sm"
+          ? "shadow-[0_10px_30px_-14px_rgba(0,0,0,0.22)] ring-1 ring-black/[0.04] dark:shadow-none dark:ring-white/[0.06]"
+          : "shadow-sm dark:shadow-none"
 
     return (
         <div
-            className={`rounded-2xl border border-border bg-white p-3.5 transition-shadow md:p-4 duration-700 ${tone} ${className}`}
+            className={`rounded-2xl border border-border bg-card text-card-foreground p-3.5 transition-shadow md:p-4 duration-700 ${tone} ${className}`}
         >
             {children}
         </div>
@@ -56,7 +56,7 @@ function CardHeader({
 }) {
     return (
         <div className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-2.5 gap-y-2 md:flex md:items-start md:gap-3">
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neutral-950 text-white md:size-10 md:rounded-xl">
+            <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground md:size-10 md:rounded-xl">
                 {icon}
             </span>
             <div className="contents md:block md:min-w-0">
@@ -93,7 +93,7 @@ export function DevelopmentCard({
                 title={t("developmentTitle")}
                 description={t("developmentDescription")}
             />
-            <div className="mt-3 rounded-xl border border-border bg-neutral-50 px-3 py-2.5 font-mono text-xs">
+            <div className="mt-3 rounded-xl border border-border bg-muted px-3 py-2.5 font-mono text-xs">
                 <div className="mb-1.5 hidden gap-1.5 md:flex" aria-hidden>
                     <span className="size-2 rounded-full bg-red-400" />
                     <span className="size-2 rounded-full bg-amber-400" />
@@ -101,7 +101,7 @@ export function DevelopmentCard({
                 </div>
                 <p className="hidden text-muted-foreground md:block">~/api</p>
                 <p className="text-foreground md:mt-0.5">
-                    <span className="text-emerald-600">$</span> {visible}
+                    <span className="text-success">$</span> {visible}
                     {!showReady && typedLength < command.length ? (
                         <span
                             aria-hidden
@@ -114,13 +114,13 @@ export function DevelopmentCard({
                         showReady ? "opacity-100" : "opacity-0"
                     }`}
                 >
-                    <span className="text-emerald-600">✓</span>{" "}
+                    <span className="text-success">✓</span>{" "}
                     {t("terminalReady")}
                 </p>
             </div>
             <div className="mt-3 hidden flex-wrap gap-2 md:flex">
                 <span className="inline-flex items-center gap-1.5 rounded-lg border border-border px-2 py-1 text-xs font-medium">
-                    <span className="flex size-4 items-center justify-center rounded-full bg-neutral-950 text-[9px] text-white">
+                    <span className="flex size-4 items-center justify-center rounded-full bg-primary text-[9px] text-primary-foreground">
                         N
                     </span>
                     Next.js
@@ -163,7 +163,7 @@ export function NetworkingCard({
                                 aria-hidden
                             />
                         ) : null}
-                        <span className="rounded-lg border border-border bg-white px-2 py-1 text-xs font-medium shadow-xs">
+                        <span className="rounded-lg border border-border bg-card px-2 py-1 text-xs font-medium shadow-xs dark:shadow-none">
                             {label}
                         </span>
                     </Fragment>
@@ -208,7 +208,7 @@ export function NetworkingCard({
                     />
                     <circle
                         r="3"
-                        fill="#10b981"
+                        fill="var(--color-success)"
                         cx="100"
                         cy="12"
                         className={
@@ -239,7 +239,7 @@ function TopologyNode({
     label: string
 }) {
     return (
-        <div className="flex items-center gap-2 rounded-lg border border-border bg-white px-2.5 py-1.5 text-xs font-medium shadow-xs">
+        <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-2.5 py-1.5 text-xs font-medium shadow-xs dark:shadow-none">
             <span className="text-muted-foreground" aria-hidden>
                 {icon}
             </span>
@@ -268,7 +268,7 @@ export function SystemAdminCard({
             service: "Nginx",
             icon: (
                 <span
-                    className="w-3.5 text-center text-xs font-bold text-neutral-800"
+                    className="w-3.5 text-center text-xs font-bold text-foreground"
                     aria-hidden
                 >
                     N
@@ -296,7 +296,7 @@ export function SystemAdminCard({
                 description={t("sysadminDescription")}
             />
             <div className="mt-3 overflow-hidden rounded-xl border border-border">
-                <div className="hidden grid-cols-[7rem_6rem_1fr] gap-x-3 bg-neutral-50 px-3 py-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:grid">
+                <div className="hidden grid-cols-[7rem_6rem_1fr] gap-x-3 bg-muted px-3 py-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground md:grid">
                     <span>{t("tableService")}</span>
                     <span>{t("tableStatus")}</span>
                     <span>{t("tableDescription")}</span>
@@ -315,12 +315,12 @@ export function SystemAdminCard({
                                 {row.service}
                             </div>
                             <div
-                                className={`flex items-center justify-end gap-1.5 whitespace-nowrap text-xs font-medium text-emerald-600 transition-opacity md:justify-start duration-500 ${
+                                className={`flex items-center justify-end gap-1.5 whitespace-nowrap text-xs font-medium text-success transition-opacity md:justify-start duration-500 ${
                                     revealed ? "opacity-100" : "opacity-25"
                                 }`}
                             >
                                 <span
-                                    className="size-1.5 rounded-full bg-emerald-500"
+                                    className="size-1.5 rounded-full bg-success"
                                     aria-hidden
                                 />
                                 {t("statusRunning")}
@@ -354,7 +354,7 @@ export function DeploymentCard({
     return (
         <CardShell peripheral className={className}>
             <div className="flex items-center gap-2.5 md:hidden">
-                <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-neutral-950 text-white">
+                <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
                     <Cloud className="size-4" aria-hidden />
                 </span>
                 <h3 className="text-base font-semibold leading-tight text-foreground">
@@ -376,7 +376,7 @@ export function DeploymentCard({
                         <Check
                             className={`size-3.5 shrink-0 transition-colors duration-500 ${
                                 i < visibleSteps
-                                    ? "text-emerald-600"
+                                    ? "text-success"
                                     : "text-border"
                             }`}
                             aria-hidden
@@ -428,9 +428,9 @@ function MetricBar({ label, value }: { label: string; value: number }) {
                 <span>{label}</span>
                 <span className="font-medium text-foreground">{value}%</span>
             </div>
-            <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-neutral-100">
+            <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-muted">
                 <div
-                    className="h-full rounded-full bg-blue-600 transition-[width] duration-1000 ease-out"
+                    className="h-full rounded-full bg-blue-600 dark:bg-blue-500 transition-[width] duration-1000 ease-out"
                     style={{ width: `${value}%` }}
                 />
             </div>
@@ -460,7 +460,7 @@ export function FirewallCard({ className }: { className?: string }) {
                     >
                         <span className="flex items-center gap-2">
                             <span
-                                className="size-1.5 rounded-full bg-emerald-500"
+                                className="size-1.5 rounded-full bg-success"
                                 aria-hidden
                             />
                             Port {p.port}
@@ -469,9 +469,9 @@ export function FirewallCard({ className }: { className?: string }) {
                     </li>
                 ))}
             </ul>
-            <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
+            <span className="mt-2 inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-medium text-success">
                 <span
-                    className="size-1.5 rounded-full bg-emerald-500"
+                    className="size-1.5 rounded-full bg-success"
                     aria-hidden
                 />
                 {t("firewallActive")}
@@ -496,14 +496,14 @@ export function MonitoringCard({ className }: { className?: string }) {
             </div>
             <p className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
                 <span
-                    className="size-1.5 rounded-full bg-emerald-500"
+                    className="size-1.5 rounded-full bg-success"
                     aria-hidden
                 />
                 {t("monitoringStatus")}
             </p>
             <svg
                 viewBox="0 0 200 48"
-                className="mt-3 h-10 w-full text-blue-600"
+                className="mt-3 h-10 w-full text-blue-600 dark:text-blue-500"
                 aria-hidden
             >
                 <defs>
@@ -514,7 +514,7 @@ export function MonitoringCard({ className }: { className?: string }) {
                         x2="0"
                         y2="1"
                     >
-                        <stop offset="0%" stopColor="#2563eb" />
+                        <stop offset="0%" stopColor="currentColor" />
                         <stop offset="100%" stopColor="transparent" />
                     </linearGradient>
                 </defs>

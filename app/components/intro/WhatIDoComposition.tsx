@@ -134,11 +134,11 @@ export default function WhatIDoComposition() {
                 />
                 <div
                     aria-hidden
-                    className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-20 bg-linear-to-l from-white to-transparent xl:block"
+                    className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-20 bg-linear-to-l from-background to-transparent xl:block"
                 />
                 <div
                     aria-hidden
-                    className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden h-12 bg-linear-to-t from-white to-transparent xl:block"
+                    className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hidden h-12 bg-linear-to-t from-background to-transparent xl:block"
                 />
 
                 <div
@@ -198,7 +198,7 @@ export default function WhatIDoComposition() {
                         href={GITHUB_PROFILE_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex min-h-11 w-full items-center justify-center gap-0.5 rounded-full bg-neutral-950 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
+                        className="inline-flex min-h-11 w-full items-center justify-center gap-0.5 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 sm:w-auto"
                     >
                         <span>{t("viewGithub")}</span>
                         <ArrowUpRight size={16} aria-hidden />
